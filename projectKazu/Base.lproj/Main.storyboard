@@ -235,6 +235,9 @@
                                         <state key="normal" title="表示設定">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
+                                        <connections>
+                                            <action selector="changePeriodSortBtn:" destination="G5f-lf-1q7" eventType="touchUpInside" id="G5B-CC-6WB"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="終了日" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FaG-wJ-bFq">
                                         <rect key="frame" x="204" y="512" width="52" height="21"/>

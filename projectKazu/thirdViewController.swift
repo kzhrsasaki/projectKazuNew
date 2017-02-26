@@ -43,6 +43,9 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // 編集ボタンを左上に配置して履歴の削除機能
+        navigationItem.leftBarButtonItem = editButtonItem
     
         //日付が変わった時のイベントをdatePickerに設定
         myDatePicker.addTarget(self, action: #selector(showDateSelected(sender:)), for: .valueChanged)
@@ -121,6 +124,11 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         //TableViewの再描画、書く場所が大事
         myTableView.reloadData()
         
+        // データの並べ替え（inputDateの降順）
+        let sortDescription = NSSortDescriptor(key: "inputDate", ascending: false)
+        let sortDescAry = [sortDescription]
+        todoList = todoList.sortedArray(using: sortDescAry) as NSArray
+        
     }
     
     //TableViewの処理
@@ -187,7 +195,7 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         return cell
     }
     
-    //CompleteBtnを押したとき、CoreDateから該当のinputDateをキーとするデータを取り出して、complete = 1 に書き換える
+    //CompleteBtnを押したとき、CoreDateから該当のinputDateをキーとするデータを取り出して、complete = true に書き換える
     @IBAction func tapCompleteBtn(_ sender: UIButton) {
         
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -216,14 +224,35 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
                 
             }
       }
- 
-    // 履歴の削除機能（データを選んで複数まとめて削除が可能なようにする）
+    //Editボタンが押された（データ削除）
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        myTableView.isEditing = editing
+    }
+    //削除可能なセルのindexPathを指定
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        // completion = falseの場合のみ削除可能
+        
+        return true
+    }
     
-    
-    // データの並べ替え（inputDateの降順）
-    
-    
-
+    //実際に削除された時の処理を実装する
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        // 先にデータを更新する
+        todoList.remove(at: indexPath.row)
+        
+        // それからテーブルの更新
+        myTableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: indexPath.row, inSection: 0)],
+            withRowAnimation: UITableViewRowAnimation.Fade)
+    }
+    // 通常モードではスワイプ削除できないようにする
+    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        if tableView.isEditing {
+            return UITableViewCellEditingStyle.delete
+        } else {
+            return UITableViewCellEditingStyle.none
+        }
+    }
     
     //過去履歴表示設定変更
     //textFieldにカーソルが当たったとき（開始日、終了日）
@@ -272,13 +301,16 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         case 2:
             toDate.text = strSelectedDate
         default: break
-
+        }
+    }
+    // 設定変更ボタンを押してfromDate とtoDateの条件で検索して並べ替える（降順）機能
+    @IBAction func changePeriodSortBtn(_ sender: UIButton) {
+        
+        if ((fromDate.text != nil) && (toDate.text != nil)) {
+            <#code#>
         }
         
     }
-    // fromDate とtoDateの条件で検索して並べ替える（降順）機能
-    
-    
 
     //「詳細」ボタンが押されたときに発動
     @IBAction func touchDetailBtn(_ sender: UIButton) {

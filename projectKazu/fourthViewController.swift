@@ -14,8 +14,8 @@ class fourthViewController: UIViewController,UITableViewDataSource, UITableViewD
     @IBOutlet weak var periodTableView: UITableView!
     
     // Tableで使用する配列を定義する
-    let myWeeks:NSArray = ["今週　？点","前週　？点","2週前　？点","3週前　？点",]
-    let myMonths:NSArray = ["今月　？点","前月　？点","2か月前　？点","3か月前　？点","4か月前　？点","5か月前　？点",]
+    let myWeeks:NSArray = ["今週","1週前","2週前","3週前",]
+    let myMonths:NSArray = ["今月","1ヶ月前","2ヶ月前","3ヶ月前","4ヶ月前","5ヶ月前",]
     
     // Sectionで使用する配列を定義する
     let mySections:NSArray = ["週別成績（4週)","月別成績(6か月）"]
