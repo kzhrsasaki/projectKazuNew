@@ -157,10 +157,10 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         // myTitleの表示
         cell.myTitleLabel.text = dic["myTitle"] as! String
         
-        
+        var completeFlag = dic["complete"] as! Bool
         //スコア表示の定義
         var score:Int = 0
-        if (dic["complete"] as! Bool = true){
+        if (completeFlag == true){
              score = dic["score"] as! Int
         } else {
              score = 0
@@ -170,7 +170,7 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         
         // reChallengeボタン表示の定義
         var reChallengBtnTitle:String = ""
-        if ((dic["score"] as! Int = 0) && (dic["complete"] as! Bool != true)) {
+        if ((score == 0) && (completeFlag == true)) {
              reChallengBtnTitle = "もう1回"
         } else {
             reChallengBtnTitle = ""
@@ -180,7 +180,7 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         
         //completeボタン表示の定義
         var completeBtnTitle:String = "完了入力"
-        if (dic["complete"] as! Bool = true){
+        if (completeFlag == true){
              completeBtnTitle = "達成!"
         } else if (Date() > dueDate()){
             completeBtnTitle = ""

@@ -11,20 +11,68 @@ import CoreData
 
 class fourthViewController: UIViewController,UITableViewDataSource, UITableViewDelegate {
     
+    
+    @IBOutlet weak var totslScoreLabel: UILabel!
+    
     @IBOutlet weak var periodTableView: UITableView!
     
     // Tableで使用する配列を定義する
     let myWeeks:NSArray = ["今週","1週前","2週前","3週前",]
+    
     let myMonths:NSArray = ["今月","1ヶ月前","2ヶ月前","3ヶ月前","4ヶ月前","5ヶ月前",]
+    
+    //個々の行が配列であることの宣言
+    var thisWeek:NSArray = []
+    var oneWeekAg:NSArray = []
+    var twoWeekAg:NSArray = []
+    var threeWeekAg:NSArray = []
+    var thisMonth:NSArray = []
+    var oneMonthAg:NSArray = []
+    var twoMonthAg:NSArray = []
+    var threeMonthAg:NSArray = []
+    var fourMonthAg:NSArray = []
+    var fiveMonthAg:NSArray = []
     
     // Sectionで使用する配列を定義する
     let mySections:NSArray = ["週別成績（4週)","月別成績(6か月）"]
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        var totalScore: Int = 100
+        totslScoreLabel.text = "合計スコア\(totalScore)点"
+        
+        // セルの行ごとにスコアの計算ロジックに基づいて定義
+        var thisWeekScore: Int = 6
+        let thisWeek:NSArray = ["今週","週間スコア\(thisWeekScore)点"]
+        
+        var oneWeekAgScore: Int = 7
+        let oneWeekAg:NSArray = ["1週前","週間スコア\(oneWeekAgScore)点"]
+        
+        var twoWeekAgScore: Int = 6
+        let twoWeekAg:NSArray = ["2週前","週間スコア\(twoWeekAgScore)点"]
+        
+        var threeWeekAgScore: Int = 5
+        let threeWeekAg:NSArray = ["3週前","週間スコア\(threeWeekAgScore)点"]
+        
+        var thisMonthScore: Int = 12
+        let thisMonth:NSArray = ["今月","月間スコア\(thisMonthScore)点"]
+        
+        var oneMonthAgScore: Int = 13
+        let oneMonthAg:NSArray = ["1ヶ月前","月間スコア\(oneMonthAgScore)点"]
+        
+        var twoMonthAgScore: Int = 14
+        let twoMonthAg:NSArray = ["2ヶ月前","月間スコア\(twoMonthAgScore)点"]
+        
+        var threeMonthAgScore: Int = 15
+        let threeMonthAg:NSArray = ["3ヶ月前","月間スコア\(threeMonthAgScore)点"]
+        
+        var fourMonthAgScore: Int = 16
+        let fourMonthAg:NSArray = ["4ヶ月前","月間スコア\(fourMonthAgScore)点"]
+        
+        var fiveMonthAgScore: Int = 17
+        let fiveMonthAg:NSArray = ["5ヶ月前","月間スコア\(fiveMonthAgScore)点"]
 
-        // Do any additional setup after loading the view.
     }
     
     //セクションの数を返す
@@ -35,12 +83,14 @@ class fourthViewController: UIViewController,UITableViewDataSource, UITableViewD
         func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
             return mySections[section] as? String
     }
-    //セルが選択された際に呼び出される
+    //画面が開いた際に呼び出される
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             print("Value: \(myWeeks[indexPath.row])")
+            
         } else if indexPath.section == 1 {
             print("Value: \(myMonths[indexPath.row])")
+            
         }
     }
     //テーブルに表示する配列の総数を返す
