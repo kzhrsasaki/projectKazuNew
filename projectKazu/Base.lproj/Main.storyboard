@@ -207,7 +207,6 @@
                                                             <state key="normal" title="詳細"/>
                                                             <connections>
                                                                 <action selector="touchDetailBtn:" destination="G5f-lf-1q7" eventType="touchUpInside" id="Uzl-YQ-hVA"/>
-                                                                <segue destination="ebm-iZ-h9u" kind="show" identifier="showDetailView" id="lxW-xX-o4Z"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -264,6 +263,7 @@
                         <outlet property="fromDate" destination="JBK-4M-xbd" id="uBM-aR-x0M"/>
                         <outlet property="myTableView" destination="9i7-D5-6m2" id="o8V-qf-qna"/>
                         <outlet property="toDate" destination="AwS-NR-5Md" id="3lh-qa-MJJ"/>
+                        <segue destination="ebm-iZ-h9u" kind="presentation" identifier="showDetailView" id="bOg-n5-84u"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E3f-6W-a9U" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -311,7 +311,6 @@
                                         <rect key="frame" x="43" y="181" width="272" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
@@ -319,7 +318,6 @@
                                         <rect key="frame" x="43" y="356" width="272" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
@@ -349,7 +347,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="yy/MM/dd" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oep-15-WqS">
-                                        <rect key="frame" x="108" y="115" width="87" height="21"/>
+                                        <rect key="frame" x="108" y="115" width="113" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -441,7 +439,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="383" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4bF-RD-QWx" id="lWG-PI-eeD">
-                                                    <rect key="frame" x="0.0" y="0.0" width="383" height="43"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="383" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </tableViewCellContentView>
                                             </tableViewCell>

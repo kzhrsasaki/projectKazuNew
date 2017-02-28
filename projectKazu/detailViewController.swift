@@ -18,59 +18,28 @@ class detailViewController: UIViewController {
     //配列を前の画面から引き継ぐ
     var todoList:[NSDictionary] = []
     
-    //リストから選ばれた名前
+    //リストから選ばれた名前（日付）
     var scSelectedDate = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //データを渡せているかどうかの確認
-        print(scSelectedDate)
+        //thirdViewControllerからデータを受け取っているかどうかの確認
+        print("前の画面から受け取った\(scSelectedDate)")
         //登録日の表示
         dateLabel.text = scSelectedDate
         
         // AppDelegeteにアクセスするための準備
         let myApp = UIApplication.shared.delegate as! AppDelegate
         
-        for(key,data) in myApp.dic{
-            var dic:NSDictionary = data as! NSDictionary
-            
-            if((key as! String) as String == scSelectedDate){
-                myContents.text = dic["myContents"] as! String
-                }
-        }
-        
-//        //画面遷移先で"inputDate"を主キーにして"myContents"を表示
-//        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-//        let viewContext = appDelegate.persistentContainer.viewContext
-//        var dic:NSDictionary = todoList[]
-//        let date = Date()
-//        let df = DateFormatter()
-//        df.dateFormat = "yy/MM/dd"
-//        //データの更新
-//        let request: NSFetchRequest<ToDo> = ToDo.fetchRequest()
-//        var strSavedDate:String = df.string(from: dic["inputDate"] as! Date)
-//        var savedDate:Date = df.date(from: strSavedDate)!
-//        
-//        do{
-//            let namePredicte = NSPredicate(format: "inputDate = %@", savedDate as CVarArg)
-//            request.predicate = namePredicte
-//            let fetchResults = try! viewContext.fetch(request)
+//        for(key,data) in myApp.dic{
+//            var dic:NSDictionary = data as! NSDictionary
 //            
-//            //登録された日付を元に1件取得　新しい値を入れる
-//            for result: AnyObject in fetchResults {
-//                let record = result as! NSManagedObject
-//                record.setValue(true, forKey: "complete")
-//            }
-//            try viewContext.save()
-//        } catch {
-//            
+//            if((key as! String) as String == scSelectedDate){
+//                myContents.text = dic["myContents"] as! String
+//                }
 //        }
+        
     }
-
-    
-    
-    
-
 
     // myMemo（ふり返り）をcompleteがtrue以降にのみ入力可にする
     
@@ -106,7 +75,7 @@ class detailViewController: UIViewController {
     @IBAction func saveMemo(_ sender: UIButton) {
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         let viewContext = appDelegate.persistentContainer.viewContext
-        var dic:NSDictionary = todoList[] as! NSDictionary
+        var dic:NSDictionary = appDelegate.dic
         let date = Date()
         let df = DateFormatter()
         df.dateFormat = "yy/MM/dd"

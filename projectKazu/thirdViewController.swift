@@ -127,7 +127,7 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         // データの並べ替え（inputDateの降順）
         let sortDescription = NSSortDescriptor(key: "inputDate", ascending: false)
         let sortDescAry = [sortDescription]
-        todoList = todoList.sortedArray(using: sortDescAry) as NSArray
+        todoList = ((todoList as NSArray).sortedArray(using: sortDescAry) as NSArray) as! [NSDictionary]
         
     }
     
@@ -143,7 +143,6 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
         
         //セルを表示するためのコード"\()"
-        cell.textLabel?.text = "\(todoList[indexPath.row])"
         print(todoList[indexPath.row])
         
         var dic:NSDictionary = todoList[indexPath.row]
@@ -162,6 +161,10 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         var score:Int = 0
         if (completeFlag == true){
              score = dic["score"] as! Int
+        //TODO:不明点
+//        } else if (Date() <= dic["dueDate"] as! Date) {
+//             var str = "score"
+            
         } else {
              score = 0
         }
@@ -170,7 +173,7 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         
         // reChallengeボタン表示の定義
         var reChallengBtnTitle:String = ""
-        if ((score == 0) && (completeFlag == true)) {
+        if ((score == 0) && (Date() > dic["dueDate"] as! Date)) {
              reChallengBtnTitle = "もう1回"
         } else {
             reChallengBtnTitle = ""
@@ -182,7 +185,7 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         var completeBtnTitle:String = "完了入力"
         if (completeFlag == true){
              completeBtnTitle = "達成!"
-        } else if (Date() > dueDate()){
+        } else if (Date() > dic["dueDate"] as! Date){
             completeBtnTitle = ""
         } else {
              completeBtnTitle = "完了入力"
@@ -241,9 +244,11 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         // 先にデータを更新する
         todoList.remove(at: indexPath.row)
         
-        // それからテーブルの更新
-        myTableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: indexPath.row, inSection: 0)],
-            withRowAnimation: UITableViewRowAnimation.Fade)
+//        // それからテーブルの更新
+//        myTableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: indexPath.row, inSection: 0)],
+//            withRowAnimation: UITableViewRowAnimation.Fade)
+        
+        myTableView.reloadData()
     }
     // 通常モードではスワイプ削除できないようにする
     func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
@@ -305,35 +310,36 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
     }
     // 設定変更ボタンを押してfromDate とtoDateの条件で検索して並べ替える（降順）機能
     @IBAction func changePeriodSortBtn(_ sender: UIButton) {
-        
-        if ((fromDate.text != nil) && (toDate.text != nil)) {
-            <#code#>
-        }
+  
+        //TODO:後で
+//        if ((fromDate.text != nil) && (toDate.text != nil) && (Date(from: fromDate.text) < Date(from: toDate.text))) {
+//        // coreDataからデータを取得して日付を範囲指定して並べ替える、elseの場合はエラーを返す
+//            
+//        }
         
     }
 
     //「詳細」ボタンが押されたときに発動
     @IBAction func touchDetailBtn(_ sender: UIButton) {
     
-        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            
-            print("\((indexPath as IndexPath).row)行目を選択")
+       
             //選択された行のinputDateを取り出す
             let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-            let viewContext = appDelegate.persistentContainer.viewContext
-            var dic:NSDictionary = todoList[sender.tag]
+        
+            appDelegate.dic = todoList[sender.tag]
             let date = Date()
             let df = DateFormatter()
             df.dateFormat = "yy/MM/dd"
             //データの更新
-            let request: NSFetchRequest<ToDo> = ToDo.fetchRequest()
-            var strSavedDate:String = df.string(from: dic["inputDate"] as! Date)
+            // dic[]のグローバル変数化
+        
+            var strSavedDate:String = df.string(from: appDelegate.dic["inputDate"] as! Date)
             
             selectedDate = strSavedDate
         
             //セグエを使って画面移動、identifierに入力済みのもの
             performSegue(withIdentifier: "showDetailView", sender: nil)
-        }
+        
     }
     
     //Segueで画面遷移する時発動
