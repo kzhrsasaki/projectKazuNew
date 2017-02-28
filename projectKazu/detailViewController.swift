@@ -29,8 +29,8 @@ class detailViewController: UIViewController {
         dateLabel.text = scSelectedDate
         
         // AppDelegeteにアクセスするための準備
-        let myApp = UIApplication.shared.delegate as! AppDelegate
-        
+//        let myApp = UIApplication.shared.delegate as! AppDelegate
+//        
 //        for(key,data) in myApp.dic{
 //            var dic:NSDictionary = data as! NSDictionary
 //            
@@ -72,6 +72,7 @@ class detailViewController: UIViewController {
     }
 
     // 保存ボタンを押したらcoreDateにmyMemoのデータを新規登録し、かつthirdViewControllerに戻る。
+    // dicをグローバル変数扱いにする（appDelegate.dic)
     @IBAction func saveMemo(_ sender: UIButton) {
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         let viewContext = appDelegate.persistentContainer.viewContext

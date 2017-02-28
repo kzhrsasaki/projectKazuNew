@@ -21,6 +21,10 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
     //選択されたinputDateが格納される変数
     var selectedDate:String = String(describing: Date())
     
+    //選択されたmyTitle、myContentsが格納される変数
+    var selectedTitle:String = ""
+    var selectedContents:String = ""
+    
     //過去履歴表示変更設定の各項目
     @IBOutlet weak var fromDate: UITextField!
     @IBOutlet weak var toDate: UITextField!
@@ -163,7 +167,7 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
              score = dic["score"] as! Int
         //TODO:不明点
 //        } else if (Date() <= dic["dueDate"] as! Date) {
-//             var str = "score"
+//             score = nil
             
         } else {
              score = 0
@@ -173,8 +177,8 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         
         // reChallengeボタン表示の定義
         var reChallengBtnTitle:String = ""
-        if ((score == 0) && (Date() > dic["dueDate"] as! Date)) {
-             reChallengBtnTitle = "もう1回"
+        if ((score == 0) && (NSDate() as Date > dic["dueDate"] as! Date)) {
+             reChallengBtnTitle = "再挑戦"
         } else {
             reChallengBtnTitle = ""
         }
@@ -224,9 +228,11 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
                 }
                 try viewContext.save()
             } catch {
-                
             }
-      }
+          //complete=trueとなった後にボタンを押せなくする
+        sender.isEnabled = false
+    }
+    
     //Editボタンが押された（データ削除）
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
@@ -250,6 +256,7 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         
         myTableView.reloadData()
     }
+    
     // 通常モードではスワイプ削除できないようにする
     func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
         if tableView.isEditing {
@@ -322,7 +329,6 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
     //「詳細」ボタンが押されたときに発動
     @IBAction func touchDetailBtn(_ sender: UIButton) {
     
-       
             //選択された行のinputDateを取り出す
             let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         
@@ -342,9 +348,24 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         
     }
     
+    //再チャレンジボタンが押された際に、secondViewControllerに戻り、myTitleとmyContentsを元のまま保持した上で、他のデータをクリアして表示する。
+    @IBAction func tapReChallengeBtn(_ sender: UIButton) {
+        //選択された行の"myTitle"と"myContens"を取り出す
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        appDelegate.dic = todoList[sender.tag]
+        
+        selectedTitle = appDelegate.dic["myTitle"] as! String
+        selectedContents = appDelegate.dic["myContents"] as! String
+        
+        //セグエを使って画面移動、identifierに入力済みのもの
+        performSegue(withIdentifier: "showSecondView", sender: nil)
+        
+    }
     //Segueで画面遷移する時発動
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+    //「詳細」からdetailViewControllerへ推移
+      if (touchDetailBtn(_, sender: UIButton) = true){
         //ダウンキャスティングで型変換
         let detailVC = segue.destination as! detailViewController
         
@@ -354,10 +375,23 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         detailVC.todoList = todoList
         // デバッグエリアの情報をわかりやすく表示
         print("番号\(detailVC.scSelectedDate)を次の画面へ渡す")
+    } else {
+    //「再チャレンジ」からsecondVireControllerへ推移
+        //ダウンキャスティングで型変換
+        let secondVC = segue.destination as! secondViewController
         
-    }
+        //遷移先画面secondViewControllerに選択されたtitleとcontentsを渡す
+        secondVC.scSelectedTitle = selectedTitle
+        
+        secondVC.scSelectedContents = selectedContents
+        // デバッグエリアの情報をわかりやすく表示
+        print("番号\(secondVC.scSelectedTitle)を次の画面へ渡す")
+        print("番号\(secondVC.scSelectedContents)を次の画面へ渡す")
     
-
+        }
+    }
+        
+  
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

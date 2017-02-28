@@ -26,9 +26,17 @@ class secondViewController: UIViewController, UITextFieldDelegate,UITextViewDele
     //scoreのメンバー変数化
     var score:Int = 1
     
+    //segueでthirdViewControllerから引き継ぐ
+    var scSelectedTitle = ""
+    var scSelectedContents = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     
+    //「再チャレンジ」でthirdViewControllerからセグエで推移
+        myTitle.text = scSelectedTitle
+        myContents.text = scSelectedContents
+        
         //現在時刻を取得
         let myDate: Date = Date()
         
