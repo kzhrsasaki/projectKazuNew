@@ -171,31 +171,22 @@
                                                             <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nNK-mj-X43">
-                                                            <rect key="frame" x="260" y="6" width="71" height="30"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <state key="normal" title="complete"/>
-                                                            <connections>
-                                                                <action selector="tapCompleteBtn:" destination="G5f-lf-1q7" eventType="touchUpInside" id="aZv-IT-0zY"/>
-                                                            </connections>
-                                                        </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="myTitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bMH-mS-9Bh">
-                                                            <rect key="frame" x="73" y="9" width="156" height="21"/>
+                                                            <rect key="frame" x="64" y="10" width="140" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="score" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ldv-JC-jLm">
-                                                            <rect key="frame" x="228" y="8" width="43" height="21"/>
+                                                            <rect key="frame" x="194" y="8" width="43" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="teH-AP-4uu">
-                                                            <rect key="frame" x="333" y="4" width="42" height="31"/>
+                                                            <rect key="frame" x="292" y="7" width="42" height="31"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" red="0.80000001190000003" green="1" blue="0.40000000600000002" alpha="0.5" colorSpace="calibratedRGB"/>
                                                             <state key="normal" title="詳細"/>
@@ -204,12 +195,21 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AQD-Mc-eVV">
-                                                            <rect key="frame" x="202" y="18" width="75" height="30"/>
+                                                            <rect key="frame" x="170" y="18" width="75" height="30"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <state key="normal" title="rechallenge"/>
                                                             <connections>
                                                                 <action selector="tapReChallengeBtn:" destination="G5f-lf-1q7" eventType="touchUpInside" id="He0-8t-2t8"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nNK-mj-X43">
+                                                            <rect key="frame" x="222" y="8" width="71" height="30"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <state key="normal" title="complete"/>
+                                                            <connections>
+                                                                <action selector="tapCompleteBtn:" destination="G5f-lf-1q7" eventType="touchUpInside" id="aZv-IT-0zY"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -655,6 +655,7 @@
                         <outlet property="myLabel2" destination="GZl-oK-DON" id="cdp-co-l6g"/>
                         <outlet property="mySwitch" destination="CKZ-ON-mfY" id="niF-UZ-U0l"/>
                         <outlet property="myTitle" destination="aiH-uc-0jo" id="lAe-aD-VSD"/>
+                        <segue destination="G5f-lf-1q7" kind="show" identifier="showThirdView" id="V4G-2J-rza"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bCh-CZ-ywl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -703,6 +704,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="cwx-Lc-kKC"/>
         <segue reference="1Mp-yK-DuK"/>
     </inferredMetricsTieBreakers>
 </document>

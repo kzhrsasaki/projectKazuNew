@@ -25,6 +25,7 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
     var selectedTitle:String = ""
     var selectedContents:String = ""
     
+    
     //過去履歴表示変更設定の各項目
     @IBOutlet weak var fromDate: UITextField!
     @IBOutlet weak var toDate: UITextField!
@@ -83,10 +84,10 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         //Coredataからのdataを読み込む処理（後で関数を定義）
         read()
         
-        //ディクショナリー型に代入
-        //AppDelegateへのアクセス準備
-       let myApp = UIApplication.shared.delegate as! AppDelegate
-       myApp.dic = NSDictionary()
+//        //ディクショナリー型に代入
+//        //AppDelegateへのアクセス準備
+//       let myApp = UIApplication.shared.delegate as! AppDelegate
+//       myApp.dic = NSDictionary()
         
         
     }
@@ -165,6 +166,7 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         var score:Int = 0
         if (completeFlag == true){
              score = dic["score"] as! Int
+
         //TODO:不明点
 //        } else if (Date() <= dic["dueDate"] as! Date) {
 //             score = nil
@@ -222,7 +224,7 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
                 request.predicate = namePredicte
                 let fetchResults = try! viewContext.fetch(request)
                 
-                //登録された日付を元に1件取得　新しい値を入れる
+                //登録された日付を元に1件ずつ取得　"complete"をtrueの値を入れる
                 for result: AnyObject in fetchResults {
                     let record = result as! NSManagedObject
                     record.setValue(true, forKey: "complete")
@@ -241,13 +243,28 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
     }
     //削除可能なセルのindexPathを指定
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // completion = falseの場合のみ削除可能
-        
-        return true
+//      //score == 0 の場合のみ削除可能にしたい（保留）
+//        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+//        let dic:NSDictionary = appDelegate.dic
+//        
+//        
+//        if (dic["score"] as! Int == 0){
+           return true
+//        } else {
+//           return false
+//        }
+    }
+    
+    //deleteボタン表示を「非表示」に変更
+    func tableView(tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String? {
+        return "削除"
     }
     
     //実際に削除された時の処理を実装する
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if editingStyle == UITableViewCellEditingStyle.delete {
+            print("削除")
         // 先にデータを更新する
         todoList.remove(at: indexPath.row)
         
@@ -256,8 +273,9 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
 //            withRowAnimation: UITableViewRowAnimation.Fade)
         
         myTableView.reloadData()
+        }
+      
     }
-    
     // 通常モードではスワイプ削除できないようにする
     func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
         if tableView.isEditing {
@@ -349,7 +367,7 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         
     }
     
-    //再チャレンジボタンが押された際に、secondViewControllerに戻り、myTitleとmyContentsを元のまま保持した上で、他のデータをクリアして表示する。
+    //再挑戦ボタンが押された際に、secondViewControllerに戻り、myTitleとmyContentsを元のまま保持した上で、他のデータをクリアして表示する。
     @IBAction func tapReChallengeBtn(_ sender: UIButton) {
         //選択された行の"myTitle"と"myContens"を取り出す
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate

@@ -199,6 +199,7 @@ class secondViewController: UIViewController, UITextFieldDelegate,UITextViewDele
     // 「チャレンジ加算」の登録データを次の画面に推移 ??
     @IBAction func changeSwitch(_ sender: UISwitch) {
         print(sender.isOn)
+        
         if sender.isOn {
             print("スイッチON")
             score = 2
@@ -206,7 +207,7 @@ class secondViewController: UIViewController, UITextFieldDelegate,UITextViewDele
             print("スイッチOFF")
             score = 1
         }
-
+        
     }
     
     override func didReceiveMemoryWarning() {
