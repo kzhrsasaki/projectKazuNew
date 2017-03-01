@@ -9,11 +9,12 @@
 import UIKit
 import CoreData
 
-class detailViewController: UIViewController {
+class detailViewController: UIViewController, UITextViewDelegate {
 
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var myContents: UITextView!    
     @IBOutlet weak var myMemo: UITextView!
+    @IBOutlet weak var formView: UIView!
     
     //配列を前の画面から引き継ぐ
     var todoList:[NSDictionary] = []
@@ -28,16 +29,30 @@ class detailViewController: UIViewController {
         //登録日の表示
         dateLabel.text = scSelectedDate
         
-        // AppDelegeteにアクセスするための準備
-//        let myApp = UIApplication.shared.delegate as! AppDelegate
-//        
-//        for(key,data) in myApp.dic{
-//            var dic:NSDictionary = data as! NSDictionary
-//            
-//            if((key as! String) as String == scSelectedDate){
-//                myContents.text = dic["myContents"] as! String
-//                }
-//        }
+        // AppDelegeteにアクセスするための準備、dicはグローバル変数化
+        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+ 
+        var dic:NSDictionary = appDelegate.dic
+        myContents.text = dic["myContents"] as! String
+        
+
+        //キーボードの上にcloseボタンを配置
+        //ビューを作成する。
+        let upView = UIView()
+        upView.frame.size.height = 60
+        upView.backgroundColor = UIColor.lightGray
+        
+        //「閉じるボタン」を作成する。
+        let closeButton = UIButton(frame:CGRect(x:self.view.bounds.size.width-70, y:0, width:70, height:50))
+        closeButton.setTitle("閉じる", for: .normal)
+
+        closeButton.addTarget(self, action: #selector(closeKeyBoard(sender:)), for: .touchUpInside)
+        
+        //ビューに「閉じるボタン」を追加する。
+        upView.addSubview(closeButton)
+        
+        //キーボードのアクセサリにビューを設定する。
+        myMemo.inputAccessoryView = upView
         
     }
 
@@ -45,7 +60,15 @@ class detailViewController: UIViewController {
     
     // myMemo(ふり返り）を100文字以内の入力とする
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+
+        print("textViewShouldBeginEditing\n")
+        print(textView.tag)
         
+        UIView.animate(withDuration: 0.5, animations: { () -> Void in
+            
+            self.formView.frame.origin = CGPoint(x: 5, y:self.formView.frame.origin.y - 250)
+            
+        }, completion: {finished in print("上に現れました")})
         // 文字数最大を決める.
         let maxLength2: Int = 101
         // textViewの文字数と最大文字数との比較
@@ -63,17 +86,23 @@ class detailViewController: UIViewController {
             //アラートを表示する
             present(alertController,animated: true, completion: nil)
             return false
-        }        
+        }
+        
+        
+        return true
     }
+ 
+    
+    
     
     //キーボードを閉じる（右上に完了文字）
     func closeKeyBoard(sender:UIButton){
-        myContents.resignFirstResponder()
+        myMemo.resignFirstResponder()
     }
 
     // 保存ボタンを押したらcoreDateにmyMemoのデータを新規登録し、かつthirdViewControllerに戻る。
     // dicをグローバル変数扱いにする（appDelegate.dic)
-    @IBAction func saveMemo(_ sender: UIButton) {
+    func saveMemo(_ sender: UIButton) {
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         let viewContext = appDelegate.persistentContainer.viewContext
         var dic:NSDictionary = appDelegate.dic
@@ -102,7 +131,7 @@ class detailViewController: UIViewController {
         //thirdViewControllerへ戻る
         self.tabBarController?.selectedIndex = 1
     }
-    
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

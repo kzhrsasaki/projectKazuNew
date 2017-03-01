@@ -198,6 +198,7 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         //追加分
         cell.completeButton.tag = indexPath.row
         cell.detailButton.tag = indexPath.row
+        cell.reChallengeButton.tag = indexPath.row
         
         return cell
     }
@@ -365,7 +366,7 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
     //Segueで画面遷移する時発動
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     //「詳細」からdetailViewControllerへ推移
-      if (touchDetailBtn(_, sender: UIButton) = true){
+      if (segue.identifier == "showDetailView"){
         //ダウンキャスティングで型変換
         let detailVC = segue.destination as! detailViewController
         
