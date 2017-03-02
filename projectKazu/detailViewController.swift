@@ -64,11 +64,18 @@ class detailViewController: UIViewController, UITextViewDelegate {
         print("textViewShouldBeginEditing\n")
         print(textView.tag)
         
+        //キーボードが出てたら閉じる
+        myMemo.resignFirstResponder()
+        
+        //withDuration:アニメーションが行われる間隔（秒）
+        //animations:変化後の状態
+        //completion:アニメーション後に行われる処理
         UIView.animate(withDuration: 0.5, animations: { () -> Void in
             
             self.formView.frame.origin = CGPoint(x: 5, y:self.formView.frame.origin.y - 250)
             
         }, completion: {finished in print("上に現れました")})
+        
         // 文字数最大を決める.
         let maxLength2: Int = 101
         // textViewの文字数と最大文字数との比較
@@ -88,12 +95,9 @@ class detailViewController: UIViewController, UITextViewDelegate {
             return false
         }
         
-        
         return true
     }
  
-    
-    
     
     //キーボードを閉じる（右上に完了文字）
     func closeKeyBoard(sender:UIButton){

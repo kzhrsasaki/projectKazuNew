@@ -30,6 +30,9 @@ class secondViewController: UIViewController, UITextFieldDelegate,UITextViewDele
     var scSelectedTitle = ""
     var scSelectedContents = ""
     
+    //選択されたscoreが格納される変数(segueでthirdViewControllerへ)
+    var selectedScore:Int = Int()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     
@@ -207,7 +210,25 @@ class secondViewController: UIViewController, UITextFieldDelegate,UITextViewDele
             print("スイッチOFF")
             score = 1
         }
+      
+        //セグエを使ってデータ遷移、identifierに入力済みのもの
+        performSegue(withIdentifier: "showThirdView", sender: nil)
+    }
+    
+    //Segueで画面遷移する時発動
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //thirdViewControllerへ推移
+
+            //ダウンキャスティングで型変換
+            let thirdVC = segue.destination as! thirdViewController
+            
+            //次の画面thirdViewControllerに選択されたスコアと配列を渡す
+            selectedScore = score
         
+            thirdVC.scSelectedScore = selectedScore
+        
+            // デバッグエリアの情報をわかりやすく表示
+            print("番号\(thirdVC.scSelectedScore)を次の画面へ渡す")
     }
     
     override func didReceiveMemoryWarning() {

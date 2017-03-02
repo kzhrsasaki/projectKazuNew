@@ -25,6 +25,9 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
     var selectedTitle:String = ""
     var selectedContents:String = ""
     
+    //segueでsecondViewControllerから引き継ぐ
+    var scSelectedScore = Int()
+    
     
     //過去履歴表示変更設定の各項目
     @IBOutlet weak var fromDate: UITextField!
@@ -50,7 +53,7 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         super.viewDidLoad()
         
         // 編集ボタンを左上に配置して履歴の削除機能
-        navigationItem.leftBarButtonItem = editButtonItem
+        navigationItem.rightBarButtonItem = editButtonItem
     
         //日付が変わった時のイベントをdatePickerに設定
         myDatePicker.addTarget(self, action: #selector(showDateSelected(sender:)), for: .valueChanged)
@@ -201,6 +204,7 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         cell.completeButton.tag = indexPath.row
         cell.detailButton.tag = indexPath.row
         cell.reChallengeButton.tag = indexPath.row
+        cell.inputDateLabel.tag = indexPath.row
         
         return cell
     }
@@ -224,10 +228,14 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
                 request.predicate = namePredicte
                 let fetchResults = try! viewContext.fetch(request)
                 
-                //登録された日付を元に1件ずつ取得　"complete"をtrueの値を入れる
+                //登録された日付を元にデータ1件取得　"complete"をtrueの値を入れる
                 for result: AnyObject in fetchResults {
                     let record = result as! NSManagedObject
                     record.setValue(true, forKey: "complete")
+                    
+                    
+                    record.setValue(score, forkey: "score")
+
                 }
                 try viewContext.save()
             } catch {
@@ -255,27 +263,50 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
 //        }
     }
     
-    //deleteボタン表示を「非表示」に変更
-    func tableView(tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String? {
+    //deleteボタン表示を「削除」に変更
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String? {
         return "削除"
     }
     
+    
     //実際に削除された時の処理を実装する
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == UITableViewCellEditingStyle.delete {
             print("削除")
-        // 先にデータを更新する
-        todoList.remove(at: indexPath.row)
+            
+       
         
-//        // それからテーブルの更新
-//        myTableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: indexPath.row, inSection: 0)],
-//            withRowAnimation: UITableViewRowAnimation.Fade)
-        
-        myTableView.reloadData()
+        //CoreDateから該当のinputDateをキーとする配列データを取り出して、削除する。
+            let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+            let viewContext = appDelegate.persistentContainer.viewContext
+            var dic:NSDictionary = todoList[indexPath.row]
+            let date = Date()
+            let df = DateFormatter()
+            df.dateFormat = "yy/MM/dd"
+            //データの更新
+            let request: NSFetchRequest<ToDo> = ToDo.fetchRequest()
+            do{
+                //dic["inputDate"]をそのまま使う
+                let namePredicte = NSPredicate(format: "inputDate = %@", dic["inputDate"] as! CVarArg)
+                request.predicate = namePredicte
+                let fetchResults = try! viewContext.fetch(request)
+            
+        //登録された日付を元にデータ1件取得　該当データを削除して保存する
+                for result: AnyObject in fetchResults {
+                    let record = result as! NSManagedObject
+                    viewContext.delete(record)
+              }
+            try viewContext.save()
+        } catch {
         }
-      
-    }
+            // 先にデータを更新する
+            todoList.remove(at: indexPath.row)
+            
+            myTableView.reloadData()
+      }
+   }
+
     // 通常モードではスワイプ削除できないようにする
     func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
         if tableView.isEditing {
