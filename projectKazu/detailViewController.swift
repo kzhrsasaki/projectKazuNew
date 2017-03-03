@@ -36,30 +36,28 @@ class detailViewController: UIViewController, UITextViewDelegate {
         myContents.text = dic["myContents"] as! String
         
 
-        //キーボードの上にcloseボタンを配置
+        //キーボードの上に「閉じる」ボタンを配置
         //ビューを作成する。
         let upView = UIView()
         upView.frame.size.height = 60
         upView.backgroundColor = UIColor.lightGray
         
-        //「閉じるボタン」を作成する。
-        let closeButton = UIButton(frame:CGRect(x:self.view.bounds.size.width-70, y:0, width:70, height:50))
-        closeButton.setTitle("閉じる", for: .normal)
-
-        closeButton.addTarget(self, action: #selector(closeKeyBoard(sender:)), for: .touchUpInside)
-        
-        //ビューに「閉じるボタン」を追加する。
-        upView.addSubview(closeButton)
-        
         //キーボードのアクセサリにビューを設定する。
         myMemo.inputAccessoryView = upView
         
+        //「閉じる」ボタンを作成する。
+        let closeButton = UIButton(frame:CGRect(x:self.view.bounds.size.width-70, y:0, width:70, height:50))
+        closeButton.setTitle("閉じる", for: .normal)
+
+        //「閉じる」ボタンを押すとキーボードが閉じてビューが元に戻る
+        closeButton.addTarget(self, action: #selector(closeKeyBoard(sender:)), for: .touchUpInside)
     }
 
     // myMemo（ふり返り）をcompleteがtrue以降にのみ入力可にする
     
     // myMemo(ふり返り）を100文字以内の入力とする
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
 
         print("textViewShouldBeginEditing\n")
         print(textView.tag)
@@ -75,7 +73,10 @@ class detailViewController: UIViewController, UITextViewDelegate {
             self.formView.frame.origin = CGPoint(x: 5, y:self.formView.frame.origin.y - 250)
             
         }, completion: {finished in print("上に現れました")})
+
         
+        
+    
         // 文字数最大を決める.
         let maxLength2: Int = 101
         // textViewの文字数と最大文字数との比較
@@ -97,13 +98,17 @@ class detailViewController: UIViewController, UITextViewDelegate {
         
         return true
     }
- 
+    //baseViewを隠す
+    func hideBaseView(){
+        self.formView.frame.origin = CGPoint(x: 0, y:self.view.frame.size.height)
+    }
     
     //キーボードを閉じる（右上に完了文字）
     func closeKeyBoard(sender:UIButton){
         myMemo.resignFirstResponder()
     }
 
+    
     // 保存ボタンを押したらcoreDateにmyMemoのデータを新規登録し、かつthirdViewControllerに戻る。
     // dicをグローバル変数扱いにする（appDelegate.dic)
     func saveMemo(_ sender: UIButton) {

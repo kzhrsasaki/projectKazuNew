@@ -14,9 +14,11 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
     // tableViewの定義
     @IBOutlet weak var myTableView: UITableView!
   
-    //辞書配列の定義（文字列で良いか？）
-    //var todoList:[String] = NSArray() as! [String]
+    //辞書配列の定義
     var todoList:[NSDictionary] = []
+    
+    //辞書配列の定義その2
+    var todoListForView:[NSDictionary] = []
     
     //選択されたinputDateが格納される変数
     var selectedDate:String = String(describing: Date())
@@ -25,12 +27,9 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
     var selectedTitle:String = ""
     var selectedContents:String = ""
     
-    //segueでsecondViewControllerから引き継ぐ
-    var scSelectedScore = Int()
-    
     
     //過去履歴表示変更設定の各項目
-    @IBOutlet weak var fromDate: UITextField!
+    @IBOutlet weak var frmDate: UITextField!
     @IBOutlet weak var toDate: UITextField!
     
     //datePickerを載せるView
@@ -48,9 +47,9 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
     print("戻る")
     }
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         // 編集ボタンを左上に配置して履歴の削除機能
         navigationItem.rightBarButtonItem = editButtonItem
@@ -82,16 +81,9 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         baseView.backgroundColor = UIColor.gray
         //画面に追加
         self.view.addSubview(baseView)
-        
-        
-        //Coredataからのdataを読み込む処理（後で関数を定義）
+                
+    //Coredataからのdataを読み込む処理（後で関数を定義）
         read()
-        
-//        //ディクショナリー型に代入
-//        //AppDelegateへのアクセス準備
-//       let myApp = UIApplication.shared.delegate as! AppDelegate
-//       myApp.dic = NSDictionary()
-        
         
     }
     
@@ -168,8 +160,8 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         //スコア表示の定義
         var score:Int = 0
         if (completeFlag == true){
-             score = dic["score"] as! Int
-
+            score = dic["score"] as! Int
+            
         //TODO:不明点
 //        } else if (Date() <= dic["dueDate"] as! Date) {
 //             score = nil
@@ -232,14 +224,12 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
                 for result: AnyObject in fetchResults {
                     let record = result as! NSManagedObject
                     record.setValue(true, forKey: "complete")
-                    
-                    
-                    record.setValue(score, forkey: "score")
+                   // record.setValue(score, forkey: "score")
 
                 }
                 try viewContext.save()
             } catch {
-            }
+        }
           //complete=trueとなった後にボタンを押せなくする
         sender.isEnabled = false
     }
@@ -275,8 +265,6 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         if editingStyle == UITableViewCellEditingStyle.delete {
             print("削除")
             
-       
-        
         //CoreDateから該当のinputDateをキーとする配列データを取り出して、削除する。
             let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
             let viewContext = appDelegate.persistentContainer.viewContext
@@ -359,23 +347,53 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         //TextFieldに値を表示
         switch sender.tag{
         case 1:
-            fromDate.text = strSelectedDate
+            frmDate.text = strSelectedDate
         case 2:
             toDate.text = strSelectedDate
         default: break
         }
-    }
+     }
+
+    
     // 設定変更ボタンを押してfromDate とtoDateの条件で検索して並べ替える（降順）機能
     @IBAction func changePeriodSortBtn(_ sender: UIButton) {
-  
-        //TODO:後で
-//        if ((fromDate.text != nil) && (toDate.text != nil) && (Date(from: fromDate.text) < Date(from: toDate.text))) {
-//        // coreDataからデータを取得して日付を範囲指定して並べ替える、elseの場合はエラーを返す
-//            
-//        }
-        
-    }
 
+        //フォーマットを設定
+        let df = DateFormatter()
+        df.dateFormat = "yyyy/MM/dd"
+        
+        if ((frmDate.text != nil) && (toDate.text != nil) && (df.date(from: frmDate.text!)! < df.date(from: toDate.text!)!)) {
+        
+        // 登録日付を範囲指定した上で、for文で繰り返し処理でセル表示を登録日付降順で並べ替える、elseの場合はエラーを返す
+            for todo in todoList{
+                print(todo)
+                
+                let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+                
+                if (calendar.dateComponents([.day], from: date, to: date2).day > 0) && (calendar.dateComponents([.day], from: date, to: date2).day > 0) {
+                    
+                    todoListForView.append(todo)
+                }
+            }
+            
+        
+            
+            
+//        for dic["inputDate"] in  {
+//            
+//            let sortDescription = NSSortDescriptor(key: "inputDate", ascending: false)
+//           
+//            let sortDescAry = [sortDescription]
+//            
+//            todoList = ((todoList as NSArray).sortedArray(using: sortDescAry) as NSArray) as! [NSDictionary]
+////            }
+//            
+//        } else {
+//        
+      }
+
+    }
+    
     //「詳細」ボタンが押されたときに発動
     @IBAction func touchDetailBtn(_ sender: UIButton) {
     
@@ -395,7 +413,6 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         
             //セグエを使って画面移動、identifierに入力済みのもの
             performSegue(withIdentifier: "showDetailView", sender: nil)
-        
     }
     
     //再挑戦ボタンが押された際に、secondViewControllerに戻り、myTitleとmyContentsを元のまま保持した上で、他のデータをクリアして表示する。
@@ -412,8 +429,10 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         performSegue(withIdentifier: "showSecondView", sender: nil)
         
     }
+        
     //Segueで画面遷移する時発動
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
     //「詳細」からdetailViewControllerへ推移
       if (segue.identifier == "showDetailView"){
         //ダウンキャスティングで型変換
@@ -421,33 +440,29 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         
         //次の画面detailViewControllerに選択された日付と配列を渡す
         detailVC.scSelectedDate = selectedDate
-        
         detailVC.todoList = todoList
         // デバッグエリアの情報をわかりやすく表示
         print("番号\(detailVC.scSelectedDate)を次の画面へ渡す")
-    } else {
-    //「再チャレンジ」からsecondVireControllerへ推移
+     } else {
+    //「再挑戦」からsecondVireControllerへ推移
         //ダウンキャスティングで型変換
         let secondVC = segue.destination as! secondViewController
-        
         //遷移先画面secondViewControllerに選択されたtitleとcontentsを渡す
         secondVC.scSelectedTitle = selectedTitle
-        
         secondVC.scSelectedContents = selectedContents
         // デバッグエリアの情報をわかりやすく表示
         print("番号\(secondVC.scSelectedTitle)を次の画面へ渡す")
         print("番号\(secondVC.scSelectedContents)を次の画面へ渡す")
-    
         }
     }
+   
         
-  
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
-}
+
     /*
     // MARK: - Navigation
 
@@ -457,5 +472,5 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         // Pass the selected object to the new view controller.
     }
     */
-
+}
 
