@@ -118,6 +118,9 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
     
            //データを配列に追加する。どうやって？
             todoList.append(["inputDate":inputDate,"dueDate":dueDate,"myTitle":myTitle,"score":score,"complete":complete,"reChallenge":reChallenge,"myContents":myContents,"memo":memo])
+            
+            todoListForView.append(["inputDate":inputDate,"dueDate":dueDate,"myTitle":myTitle,"score":score,"complete":complete,"reChallenge":reChallenge,"myContents":myContents,"memo":memo])
+
             }
         } catch {
         }
@@ -134,7 +137,7 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
     //TableViewの処理
     //行数を指定
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todoList.count
+        return todoListForView.count
     }
     
     //セルの表示
@@ -142,10 +145,10 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
         
-        //セルを表示するためのコード"\()"
-        print(todoList[indexPath.row])
+        //セルを表示するためのコード"
+        print(todoListForView[indexPath.row])
         
-        var dic:NSDictionary = todoList[indexPath.row]
+        var dic:NSDictionary = todoListForView[indexPath.row]
         
         let df = DateFormatter()
         df.dateFormat = "yy/MM/dd"
@@ -365,18 +368,43 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         if ((frmDate.text != nil) && (toDate.text != nil) && (df.date(from: frmDate.text!)! < df.date(from: toDate.text!)!)) {
         
         // 登録日付を範囲指定した上で、for文で繰り返し処理でセル表示を登録日付降順で並べ替える、elseの場合はエラーを返す
+            todoListForView = NSArray() as! [NSDictionary]
             for todo in todoList{
                 print(todo)
                 
                 let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
                 
-                if (calendar.dateComponents([.day], from: date, to: date2).day > 0) && (calendar.dateComponents([.day], from: date, to: date2).day > 0) {
+                let calender = Calendar(identifier: .gregorian)
+                
+                //calender.dateComponents([.day], from: todo["dueDate"] as! Date, to: df.date(from: frmDate.text!)!).day!)
+                
+
+                print(calender.dateComponents([.day],  from: df.date(from: toDate.text!)!, to: todo["dueDate"] as! Date).day!)
+                
+                print(calender.dateComponents([.day], from: todo["dueDate"] as! Date, to: df.date(from: frmDate.text!)!).day!)
+                
+                if (calender.dateComponents([.day], from: todo["dueDate"] as! Date, to: df.date(from: toDate.text!)!).day! > 0) && (calender.dateComponents([.day], from: df.date(from: frmDate.text!)!, to: todo["dueDate"] as! Date).day! > 0) {
                     
-                    todoListForView.append(todo)
+                        todoListForView.append(todo)
+                    
+                     }
                 }
-            }
+                 myTableView.reloadData()
             
-        
+            
+            
+           } else {
+                //エラーを返す
+                    print("入力に誤りがあります")
+                    //アラートを作る
+                    let alertController = UIAlertController(title: "入力エラー", message: "設定に誤りがあります", preferredStyle: .alert)
+                    
+                    //OKボタンを追加 handler...ボタンが押された時発動する処理を記述
+                    alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: {action in print("OK")}))
+                    
+                    //アラートを表示する
+                    present(alertController,animated: true, completion: nil)
+            
             
             
 //        for dic["inputDate"] in  {
