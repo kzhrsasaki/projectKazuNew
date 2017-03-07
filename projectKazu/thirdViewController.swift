@@ -27,7 +27,9 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
     var selectedTitle:String = ""
     var selectedContents:String = ""
     
-    
+    //スコア表示の定義（scoreの非ローカル変数化）
+    var score:Int = 0
+
     //過去履歴表示変更設定の各項目
     @IBOutlet weak var frmDate: UITextField!
     @IBOutlet weak var toDate: UITextField!
@@ -56,6 +58,8 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
     
         //日付が変わった時のイベントをdatePickerに設定
         myDatePicker.addTarget(self, action: #selector(showDateSelected(sender:)), for: .valueChanged)
+        
+        myDatePicker.datePickerMode = .date
         
         //baseViewにdatePickerを配置
         baseView.addSubview(myDatePicker)
@@ -119,7 +123,7 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
            //データを配列に追加する。どうやって？
             todoList.append(["inputDate":inputDate,"dueDate":dueDate,"myTitle":myTitle,"score":score,"complete":complete,"reChallenge":reChallenge,"myContents":myContents,"memo":memo])
             
-            todoListForView.append(["inputDate":inputDate,"dueDate":dueDate,"myTitle":myTitle,"score":score,"complete":complete,"reChallenge":reChallenge,"myContents":myContents,"memo":memo])
+        todoListForView.append(["inputDate":inputDate,"dueDate":dueDate,"myTitle":myTitle,"score":score,"complete":complete,"reChallenge":reChallenge,"myContents":myContents,"memo":memo])
 
             }
         } catch {
@@ -130,7 +134,7 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         // データの並べ替え（inputDateの降順）
         let sortDescription = NSSortDescriptor(key: "inputDate", ascending: false)
         let sortDescAry = [sortDescription]
-        todoList = ((todoList as NSArray).sortedArray(using: sortDescAry) as NSArray) as! [NSDictionary]
+        todoListForView = ((todoListForView as NSArray).sortedArray(using: sortDescAry) as NSArray) as! [NSDictionary]
         
     }
     
@@ -159,15 +163,11 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         // myTitleの表示
         cell.myTitleLabel.text = dic["myTitle"] as! String
         
+        // scoreの表示
         var completeFlag = dic["complete"] as! Bool
-        //スコア表示の定義
-        var score:Int = 0
+        
         if (completeFlag == true){
             score = dic["score"] as! Int
-            
-        //TODO:不明点
-//        } else if (Date() <= dic["dueDate"] as! Date) {
-//             score = nil
             
         } else {
              score = 0
@@ -189,6 +189,8 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         var completeBtnTitle:String = "完了入力"
         if (completeFlag == true){
              completeBtnTitle = "達成!"
+             //”達成”の文字を赤にする
+            //completeBtnTitle.setTitleColor(UIColor.red, forState: .Normal)
         } else if (Date() > dic["dueDate"] as! Date){
             completeBtnTitle = ""
         } else {
@@ -209,25 +211,22 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         let viewContext = appDelegate.persistentContainer.viewContext
-        var dic:NSDictionary = todoList[sender.tag]
+        var dic:NSDictionary = todoListForView[sender.tag]
         let date = Date()
         let df = DateFormatter()
         df.dateFormat = "yy/MM/dd"
            //データの更新
             let request: NSFetchRequest<ToDo> = ToDo.fetchRequest()
-            var strSavedDate:String = df.string(from: dic["inputDate"] as! Date)
-            var savedDate:Date = df.date(from: strSavedDate)!
-        
+
             do{
-              let namePredicte = NSPredicate(format: "inputDate = %@", savedDate as CVarArg)
+              let namePredicte = NSPredicate(format: "inputDate = %@", (dic["inputDate"] as! Date) as CVarArg)
                 request.predicate = namePredicte
                 let fetchResults = try! viewContext.fetch(request)
                 
-                //登録された日付を元にデータ1件取得　"complete"をtrueの値を入れる
+                //登録された日付を元にデータ1件取得　"complete"をtrueの値を入れる、"score"はそのままcoredataで持っている値を入れる
                 for result: AnyObject in fetchResults {
                     let record = result as! NSManagedObject
                     record.setValue(true, forKey: "complete")
-                   // record.setValue(score, forkey: "score")
 
                 }
                 try viewContext.save()
@@ -235,6 +234,8 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         }
           //complete=trueとなった後にボタンを押せなくする
         sender.isEnabled = false
+        
+        myTableView.reloadData()
     }
     
     //Editボタンが押された（データ削除）
@@ -363,9 +364,20 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
 
         //フォーマットを設定
         let df = DateFormatter()
-        df.dateFormat = "yyyy/MM/dd"
+        df.dateFormat = "yyyy/MM/dd HH:mm:ss"
         
-        if ((frmDate.text != nil) && (toDate.text != nil) && (df.date(from: frmDate.text!)! < df.date(from: toDate.text!)!)) {
+        var toDateText:String? = self.toDate.text! + " 23:59:59"
+        
+        if (self.toDate.text == nil){
+            toDateText = nil
+        }
+        var frmDateText:String? = self.frmDate.text! + " 23:59:59"
+        
+        if (self.frmDate.text == nil){
+            frmDateText = nil
+        }
+        
+        if ((frmDateText != nil) && (toDateText != nil) && (df.date(from: frmDateText!)! < df.date(from: toDateText!)!)) {
         
         // 登録日付を範囲指定した上で、for文で繰り返し処理でセル表示を登録日付降順で並べ替える、elseの場合はエラーを返す
             todoListForView = NSArray() as! [NSDictionary]
@@ -375,25 +387,27 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
                 let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
                 
                 let calender = Calendar(identifier: .gregorian)
-                
-                //calender.dateComponents([.day], from: todo["dueDate"] as! Date, to: df.date(from: frmDate.text!)!).day!)
-                
 
-                print(calender.dateComponents([.day],  from: df.date(from: toDate.text!)!, to: todo["dueDate"] as! Date).day!)
+                // ex. ２つの日付の差
+                print(calender.dateComponents([.day], from: todo["dueDate"] as! Date, to: df.date(from: toDateText!)!).day!)
                 
-                print(calender.dateComponents([.day], from: todo["dueDate"] as! Date, to: df.date(from: frmDate.text!)!).day!)
+                print(calender.dateComponents([.day], from: df.date(from: frmDateText!)!, to: todo["dueDate"] as! Date).day!)
                 
-                if (calender.dateComponents([.day], from: todo["dueDate"] as! Date, to: df.date(from: toDate.text!)!).day! > 0) && (calender.dateComponents([.day], from: df.date(from: frmDate.text!)!, to: todo["dueDate"] as! Date).day! > 0) {
-                    
-                        todoListForView.append(todo)
+                if ((calender.dateComponents([.day], from: todo["dueDate"] as! Date, to: df.date(from: toDateText!)!).day! >= 0) && (calender.dateComponents([.day], from: df.date(from: frmDateText!)!, to: todo["dueDate"] as! Date).day! >= 0)) {
+                
+                todoListForView.append(todo)
                     
                      }
                 }
-                 myTableView.reloadData()
+                myTableView.reloadData()
+            // データの並べ替え（inputDateの降順）
+            let sortDescription = NSSortDescriptor(key: "inputDate", ascending: false)
+            let sortDescAry = [sortDescription]
+            todoListForView = ((todoListForView as NSArray).sortedArray(using: sortDescAry) as NSArray) as! [NSDictionary]
             
-            
-            
-           } else {
+            sender.isEnabled = true
+
+            } else {
                 //エラーを返す
                     print("入力に誤りがあります")
                     //アラートを作る
@@ -404,22 +418,7 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
                     
                     //アラートを表示する
                     present(alertController,animated: true, completion: nil)
-            
-            
-            
-//        for dic["inputDate"] in  {
-//            
-//            let sortDescription = NSSortDescriptor(key: "inputDate", ascending: false)
-//           
-//            let sortDescAry = [sortDescription]
-//            
-//            todoList = ((todoList as NSArray).sortedArray(using: sortDescAry) as NSArray) as! [NSDictionary]
-////            }
-//            
-//        } else {
-//        
-      }
-
+          }
     }
     
     //「詳細」ボタンが押されたときに発動
