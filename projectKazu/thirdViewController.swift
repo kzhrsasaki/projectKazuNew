@@ -13,8 +13,10 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
     
     // tableViewの定義
     @IBOutlet weak var myTableView: UITableView!
-  
+
+    //期間設定ボタンの名前定義
     @IBOutlet weak var changePeriodBtn: UIButton!
+    
     //辞書配列の定義
     var todoList:[NSDictionary] = []
     
@@ -192,6 +194,9 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         var completeBtnTitle:String = "完了入力"
         if (completeFlag == true){
              completeBtnTitle = "達成!"
+            cell.completeButton.isEnabled = false
+            cell.completeButton.setTitleColor(UIColor.red, for: .normal)
+
         } else if (Date() > dic["dueDate"] as! Date){
             completeBtnTitle = ""
         } else {

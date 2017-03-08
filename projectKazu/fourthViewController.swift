@@ -32,6 +32,17 @@ class fourthViewController: UIViewController,UITableViewDataSource, UITableViewD
     var threeMonthAg:NSArray = []
     var fourMonthAg:NSArray = []
     var fiveMonthAg:NSArray = []
+
+//    var thisWeek:NSArray = myWeeks[0]
+//    var oneWeekAg:NSArray = myWeeks[1]
+//    var twoWeekAg:NSArray = myWeeks[2]
+//    var threeWeekAg:NSArray = myWeeks[3]
+//    var thisMonth:NSArray = myMonths[0]
+//    var oneMonthAg:NSArray = myMonths[1]
+//    var twoMonthAg:NSArray = myMonths[2]
+//    var threeMonthAg:NSArray = myMonths[3]
+//    var fourMonthAg:NSArray = myMonths[4]
+//    var fiveMonthAg:NSArray = myMonths[5]
     
     // Sectionで使用する配列を定義する
     let mySections:NSArray = ["週別成績（4週)","月別成績(6か月）"]
@@ -40,38 +51,38 @@ class fourthViewController: UIViewController,UITableViewDataSource, UITableViewD
         super.viewDidLoad()
         
         var totalScore: Int = 100
-        totslScoreLabel.text = "合計スコア\(totalScore)点"
+        totslScoreLabel.text = "合計得点：\(totalScore)点"
         
         // セルの行ごとにスコアの計算ロジックに基づいて定義
         var thisWeekScore: Int = 6
-        let thisWeek:NSArray = ["今週","週間スコア\(thisWeekScore)点"]
+        let thisWeek:NSArray = ["今週","週間スコア:\(thisWeekScore)点"]
         
         var oneWeekAgScore: Int = 7
-        let oneWeekAg:NSArray = ["1週前","週間スコア\(oneWeekAgScore)点"]
+        let oneWeekAg:NSArray = ["1週前","週間スコア:\(oneWeekAgScore)点"]
         
         var twoWeekAgScore: Int = 6
-        let twoWeekAg:NSArray = ["2週前","週間スコア\(twoWeekAgScore)点"]
+        let twoWeekAg:NSArray = ["2週前","週間スコア:\(twoWeekAgScore)点"]
         
         var threeWeekAgScore: Int = 5
-        let threeWeekAg:NSArray = ["3週前","週間スコア\(threeWeekAgScore)点"]
+        let threeWeekAg:NSArray = ["3週前","週間スコア:\(threeWeekAgScore)点"]
         
         var thisMonthScore: Int = 12
-        let thisMonth:NSArray = ["今月","月間スコア\(thisMonthScore)点"]
+        let thisMonth:NSArray = ["今月","月間スコア:\(thisMonthScore)点"]
         
         var oneMonthAgScore: Int = 13
-        let oneMonthAg:NSArray = ["1ヶ月前","月間スコア\(oneMonthAgScore)点"]
+        let oneMonthAg:NSArray = ["1ヶ月前","月間スコア:\(oneMonthAgScore)点"]
         
         var twoMonthAgScore: Int = 14
-        let twoMonthAg:NSArray = ["2ヶ月前","月間スコア\(twoMonthAgScore)点"]
+        let twoMonthAg:NSArray = ["2ヶ月前","月間スコア:\(twoMonthAgScore)点"]
         
         var threeMonthAgScore: Int = 15
-        let threeMonthAg:NSArray = ["3ヶ月前","月間スコア\(threeMonthAgScore)点"]
+        let threeMonthAg:NSArray = ["3ヶ月前","月間スコア:\(threeMonthAgScore)点"]
         
         var fourMonthAgScore: Int = 16
-        let fourMonthAg:NSArray = ["4ヶ月前","月間スコア\(fourMonthAgScore)点"]
+        let fourMonthAg:NSArray = ["4ヶ月前","月間スコア:\(fourMonthAgScore)点"]
         
         var fiveMonthAgScore: Int = 17
-        let fiveMonthAg:NSArray = ["5ヶ月前","月間スコア\(fiveMonthAgScore)点"]
+        let fiveMonthAg:NSArray = ["5ヶ月前","月間スコア:\(fiveMonthAgScore)点"]
 
     }
     
@@ -87,7 +98,7 @@ class fourthViewController: UIViewController,UITableViewDataSource, UITableViewD
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             print("Value: \(myWeeks[indexPath.row])")
-            
+
         } else if indexPath.section == 1 {
             print("Value: \(myMonths[indexPath.row])")
             

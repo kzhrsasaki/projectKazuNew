@@ -21,6 +21,9 @@ class detailViewController: UIViewController, UITextViewDelegate {
     
     //リストから選ばれた名前（日付）
     var scSelectedDate = ""
+    
+    //選択されたinputDateが格納される変数その2
+    var selectedDate:String = String(describing: Date())
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,11 +42,11 @@ class detailViewController: UIViewController, UITextViewDelegate {
         //キーボードの上に「閉じる」ボタンを配置
         //ビューを作成する。
         let upView = UIView()
-        upView.frame.size.height = 60
+        upView.frame.size.height = 50
         upView.backgroundColor = UIColor.lightGray
         
         //「閉じる」ボタンを作成する。
-        let closeButton = UIButton(frame:CGRect(x:self.view.bounds.size.width-70, y:0, width:70, height:50))
+        let closeButton = UIButton(frame:CGRect(x:self.view.bounds.size.width-70, y:0, width:70, height:40))
         closeButton.setTitle("閉じる", for: .normal)
 
         //「閉じる」ボタンを押すとキーボードが閉じてビューが元に戻る
@@ -56,7 +59,7 @@ class detailViewController: UIViewController, UITextViewDelegate {
         myMemo.inputAccessoryView = upView
     }
 
-    // myMemo（ふり返り）をcompleteがtrue以降にのみ入力可にする
+    // myMemo（ふり返り）をcompleteがtrue以降にのみ入力可にする（保留）
     
     // myMemo(ふり返り）を100文字以内の入力とする
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
@@ -121,35 +124,65 @@ class detailViewController: UIViewController, UITextViewDelegate {
     // dicをグローバル変数扱いにする（appDelegate.dic)
     
     @IBAction func saveMemo(_ sender: UIButton) {
+        
+        if (myMemo.text != "") {
     
-        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-        let viewContext = appDelegate.persistentContainer.viewContext
-        var dic:NSDictionary = appDelegate.dic
-        let date = Date()
-        let df = DateFormatter()
-        df.dateFormat = "yy/MM/dd"
-        //データの更新
-        let request: NSFetchRequest<ToDo> = ToDo.fetchRequest()
-        var strSavedDate:String = df.string(from: dic["inputDate"] as! Date)
-        var savedDate:Date = df.date(from: strSavedDate)!
+           let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+           let viewContext = appDelegate.persistentContainer.viewContext
+           var dic:NSDictionary = appDelegate.dic
+           let date = Date()
+           let df = DateFormatter()
+           df.dateFormat = "yy/MM/dd"
+           //データの更新
+           let request: NSFetchRequest<ToDo> = ToDo.fetchRequest()
     
-        do{
-            let namePredicte = NSPredicate(format: "inputDate = %@", savedDate as CVarArg)
-            request.predicate = namePredicte
-            let fetchResults = try! viewContext.fetch(request)
+           do{
+               //dic["inputDate"]をそのまま使う
+               let namePredicte = NSPredicate(format: "inputDate = %@", dic["inputDate"] as! CVarArg)
+               request.predicate = namePredicte
+               let fetchResults = try! viewContext.fetch(request)
     
-            //登録された日付を元にmyMemoに1件取得　新しい値を入れる
-            for result: AnyObject in fetchResults {
-                let record = result as! NSManagedObject
-                record.setValue(myMemo.text, forKey: "memo")
-            }
-            try viewContext.save()
-        } catch {
-        }
-        //thirdViewControllerへ戻る
-        self.tabBarController?.selectedIndex = 1
-    }
-
+               //登録された日付を元にmyMemoに1件取得　新しい値を入れる
+               for result: AnyObject in fetchResults {
+                   let record = result as! NSManagedObject
+                   record.setValue(myMemo.text, forKey: "memo")
+              }
+                 try viewContext.save()
+              } catch {
+              }
+//              //thirdViewControllerへ戻る
+//              tabBarController?.selectedIndex = 1
+//              //セグエを使って画面移動、identifierに入力済みのもの
+//              performSegue(withIdentifier: "showThirdView", sender: nil)
+            //アラートを作る
+            let alertController = UIAlertController(title: "入力確認", message: "ふり返りメモを保存しますか？", preferredStyle: .alert)
+            
+            //OKボタンを追加 handler...ボタンが押された時発動する処理を記述
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: {action in self.dismiss(animated: true, completion: nil)}))
+            
+            //アラートを表示する
+            present(alertController,animated: true, completion: nil)
+            
+         } else {
+            //エラーを返す
+            print("入力されていません")
+            //アラートを作る
+            let alertController = UIAlertController(title: "未入力エラー", message: "文字が入力されていません", preferredStyle: .alert)
+            
+            //OKボタンを追加 handler...ボタンが押された時発動する処理を記述
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: {action in self.dismiss(animated: true, completion: nil)}))
+            
+            //アラートを表示する
+            present(alertController,animated: true, completion: nil)
+         }
+      }
+    
+//    //Segueで画面遷移する時発動
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//            //ダウンキャスティングで型変換
+//            let thirdVC = segue.destination as! thirdViewController
+//     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
