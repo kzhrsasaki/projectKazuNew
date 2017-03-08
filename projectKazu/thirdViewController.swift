@@ -246,16 +246,8 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
     }
     //削除可能なセルのindexPathを指定
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-//      //score == 0 の場合のみ削除可能にしたい（保留）
-//        let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-//        let dic:NSDictionary = appDelegate.dic
-//        
-//        
-//        if (dic["score"] as! Int == 0){
+
            return true
-//        } else {
-//           return false
-//        }
     }
     
     //deleteボタン表示を「削除」に変更
@@ -421,6 +413,18 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
                     //アラートを表示する
                     present(alertController,animated: true, completion: nil)
           }
+    }
+    
+    //期間指定設定を元に戻す
+    @IBAction func backPeriodBtn(_ sender: UIButton) {
+        
+        todoListForView = todoList
+        myTableView.reloadData()
+        
+        // データの並べ替え（inputDateの降順）
+        let sortDescription = NSSortDescriptor(key: "inputDate", ascending: false)
+        let sortDescAry = [sortDescription]
+        todoListForView = ((todoListForView as NSArray).sortedArray(using: sortDescAry) as NSArray) as! [NSDictionary]
     }
     
     //「詳細」ボタンが押されたときに発動
