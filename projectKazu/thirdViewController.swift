@@ -14,6 +14,7 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
     // tableViewの定義
     @IBOutlet weak var myTableView: UITableView!
   
+    @IBOutlet weak var changePeriodBtn: UIButton!
     //辞書配列の定義
     var todoList:[NSDictionary] = []
     
@@ -136,6 +137,8 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         let sortDescAry = [sortDescription]
         todoListForView = ((todoListForView as NSArray).sortedArray(using: sortDescAry) as NSArray) as! [NSDictionary]
         
+        changePeriodBtn.isEnabled = true
+        
     }
     
     //TableViewの処理
@@ -189,8 +192,6 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         var completeBtnTitle:String = "完了入力"
         if (completeFlag == true){
              completeBtnTitle = "達成!"
-             //”達成”の文字を赤にする
-            //completeBtnTitle.setTitleColor(UIColor.red, forState: .Normal)
         } else if (Date() > dic["dueDate"] as! Date){
             completeBtnTitle = ""
         } else {
@@ -377,7 +378,7 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
             frmDateText = nil
         }
         
-        if ((frmDateText != nil) && (toDateText != nil) && (df.date(from: frmDateText!)! < df.date(from: toDateText!)!)) {
+        if ((frmDateText != " 23:59:59") && (toDateText != " 23:59:59") && (df.date(from: frmDateText!)! < df.date(from: toDateText!)!)) {
         
         // 登録日付を範囲指定した上で、for文で繰り返し処理でセル表示を登録日付降順で並べ替える、elseの場合はエラーを返す
             todoListForView = NSArray() as! [NSDictionary]
@@ -400,12 +401,13 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
                      }
                 }
                 myTableView.reloadData()
+            
             // データの並べ替え（inputDateの降順）
             let sortDescription = NSSortDescriptor(key: "inputDate", ascending: false)
             let sortDescAry = [sortDescription]
             todoListForView = ((todoListForView as NSArray).sortedArray(using: sortDescAry) as NSArray) as! [NSDictionary]
             
-            sender.isEnabled = true
+            changePeriodBtn.isEnabled = true
 
             } else {
                 //エラーを返す
@@ -414,7 +416,7 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
                     let alertController = UIAlertController(title: "入力エラー", message: "設定に誤りがあります", preferredStyle: .alert)
                     
                     //OKボタンを追加 handler...ボタンが押された時発動する処理を記述
-                    alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: {action in print("OK")}))
+                    alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: {action in sender.isEnabled = true}))
                     
                     //アラートを表示する
                     present(alertController,animated: true, completion: nil)

@@ -42,25 +42,26 @@ class detailViewController: UIViewController, UITextViewDelegate {
         upView.frame.size.height = 60
         upView.backgroundColor = UIColor.lightGray
         
-        //キーボードのアクセサリにビューを設定する。
-        myMemo.inputAccessoryView = upView
-        
         //「閉じる」ボタンを作成する。
         let closeButton = UIButton(frame:CGRect(x:self.view.bounds.size.width-70, y:0, width:70, height:50))
         closeButton.setTitle("閉じる", for: .normal)
 
         //「閉じる」ボタンを押すとキーボードが閉じてビューが元に戻る
         closeButton.addTarget(self, action: #selector(closeKeyBoard(sender:)), for: .touchUpInside)
+        
+        //ビューに「閉じるボタン」を追加する。
+        upView.addSubview(closeButton)
+        
+        //キーボードのアクセサリにビューを設定する。
+        myMemo.inputAccessoryView = upView
     }
 
     // myMemo（ふり返り）をcompleteがtrue以降にのみ入力可にする
     
     // myMemo(ふり返り）を100文字以内の入力とする
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        
-
-        print("textViewShouldBeginEditing\n")
-        print(textView.tag)
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+          print("textViewShouldBeginEditing\n")
+          print(textView.tag)
         
         //キーボードが出てたら閉じる
         myMemo.resignFirstResponder()
@@ -74,9 +75,6 @@ class detailViewController: UIViewController, UITextViewDelegate {
             
         }, completion: {finished in print("上に現れました")})
 
-        
-        
-    
         // 文字数最大を決める.
         let maxLength2: Int = 101
         // textViewの文字数と最大文字数との比較
@@ -98,7 +96,17 @@ class detailViewController: UIViewController, UITextViewDelegate {
         
         return true
     }
-    //baseViewを隠す
+   
+    @IBAction func tapClose(_ sender: UIButton) {
+        myMemo.resignFirstResponder()
+        UIView.animate(withDuration: 0.5, animations: { () -> Void in
+            
+            self.formView.frame.origin = CGPoint(x: 5, y:self.formView.frame.origin.y + 250)
+            
+        }, completion: {finished in print("上に現れました")})
+    }
+    
+     //baseViewを隠す
     func hideBaseView(){
         self.formView.frame.origin = CGPoint(x: 0, y:self.view.frame.size.height)
     }
@@ -111,7 +119,9 @@ class detailViewController: UIViewController, UITextViewDelegate {
     
     // 保存ボタンを押したらcoreDateにmyMemoのデータを新規登録し、かつthirdViewControllerに戻る。
     // dicをグローバル変数扱いにする（appDelegate.dic)
-    func saveMemo(_ sender: UIButton) {
+    
+    @IBAction func saveMemo(_ sender: UIButton) {
+    
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         let viewContext = appDelegate.persistentContainer.viewContext
         var dic:NSDictionary = appDelegate.dic
@@ -135,12 +145,10 @@ class detailViewController: UIViewController, UITextViewDelegate {
             }
             try viewContext.save()
         } catch {
-    
         }
         //thirdViewControllerへ戻る
         self.tabBarController?.selectedIndex = 1
     }
-
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

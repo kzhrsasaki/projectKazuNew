@@ -262,6 +262,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="raZ-vu-0tU"/>
                     <connections>
+                        <outlet property="changePeriodBtn" destination="thH-XM-PNx" id="lr1-rb-GtA"/>
                         <outlet property="frmDate" destination="JBK-4M-xbd" id="7cR-Pd-g6L"/>
                         <outlet property="myTableView" destination="9i7-D5-6m2" id="o8V-qf-qna"/>
                         <outlet property="toDate" destination="AwS-NR-5Md" id="3lh-qa-MJJ"/>
@@ -311,7 +312,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="NIi-lM-EKg">
-                                        <rect key="frame" x="59" y="181" width="272" height="128"/>
+                                        <rect key="frame" x="59" y="181" width="272" height="119"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.80000001190000003" green="1" blue="0.40000000600000002" alpha="0.5" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -323,7 +324,7 @@
                                         <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="保存"/>
                                         <connections>
-                                            <action selector="saveMemo:" destination="ebm-iZ-h9u" eventType="touchUpInside" id="3XL-iu-UfY"/>
+                                            <action selector="saveMemo:" destination="ebm-iZ-h9u" eventType="touchUpInside" id="bas-DD-nTZ"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="※100文字以内" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GI3-ux-Y5N">
@@ -366,6 +367,15 @@
                                             <outlet property="delegate" destination="ebm-iZ-h9u" id="Dyw-tw-pQQ"/>
                                         </connections>
                                     </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c3B-p3-2oM">
+                                        <rect key="frame" x="257" y="318" width="100" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <state key="normal" title="元の位置に戻る"/>
+                                        <connections>
+                                            <action selector="tapClose:" destination="ebm-iZ-h9u" eventType="touchUpInside" id="8Bp-qV-ZdC"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.80000001190000003" green="1" blue="0.40000000600000002" alpha="0.5" colorSpace="calibratedRGB"/>
                             </view>
