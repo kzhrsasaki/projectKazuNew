@@ -157,11 +157,15 @@ class detailViewController: UIViewController, UITextViewDelegate {
          } else {
             //エラーを返す
             print("入力されていません")
+            
+            self.myMemo.resignFirstResponder()
+            self.formView.frame.origin = CGPoint(x: 5, y:self.formView.frame.origin.y + 250)
+            
             //アラートを作る
             let alertController = UIAlertController(title: "未入力エラー", message: "文字が入力されていません", preferredStyle: .alert)
             
             //OKボタンを追加 handler...ボタンが押された時発動する処理を記述
-            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: {action in self.formView.frame.origin = CGPoint(x: 5, y:self.formView.frame.origin.y + 250)}))
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             
             //アラートを表示する
             present(alertController,animated: false, completion: nil)

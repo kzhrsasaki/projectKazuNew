@@ -32,17 +32,6 @@ class fourthViewController: UIViewController,UITableViewDataSource, UITableViewD
     var threeMonthAg:NSArray = []
     var fourMonthAg:NSArray = []
     var fiveMonthAg:NSArray = []
-
-//    var thisWeek:NSArray = myWeeks[0]
-//    var oneWeekAg:NSArray = myWeeks[1]
-//    var twoWeekAg:NSArray = myWeeks[2]
-//    var threeWeekAg:NSArray = myWeeks[3]
-//    var thisMonth:NSArray = myMonths[0]
-//    var oneMonthAg:NSArray = myMonths[1]
-//    var twoMonthAg:NSArray = myMonths[2]
-//    var threeMonthAg:NSArray = myMonths[3]
-//    var fourMonthAg:NSArray = myMonths[4]
-//    var fiveMonthAg:NSArray = myMonths[5]
     
     // Sectionで使用する配列を定義する
     let mySections:NSArray = ["週別成績（4週)","月別成績(6か月）"]
@@ -98,9 +87,36 @@ class fourthViewController: UIViewController,UITableViewDataSource, UITableViewD
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             print("Value: \(myWeeks[indexPath.row])")
+//            switch indexPath.row {
+//            case 0:
+//                myWeeks[indexPath.row] = thisWeek
+//            case 1:
+//                myWeeks[indexPath.row] = oneWeekAg
+//            case 2:
+//                myWeeks[indexPath.row] = twoWeekAg
+//            case 3:
+//                myWeeks[indexPath.row] = threeWeekAg
+//            default:
+//                false
+//            }
 
         } else if indexPath.section == 1 {
             print("Value: \(myMonths[indexPath.row])")
+//            switch indexPath.row {
+//            case 0:
+//                myMonths[indexPath.row] = thisMonth
+//            case 1:
+//                myMonths[indexPath.row] = oneMonthAg
+//            case 2:
+//                myMonths[indexPath.row] = twoMonthAg
+//            case 3:
+//                myMonths[indexPath.row] = threeMonthAg
+//            case 4:
+//                myMonths[indexPath.row] = MonthAg
+//            default:
+//                false
+//                
+//            }
             
         }
     }

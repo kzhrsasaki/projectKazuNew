@@ -411,7 +411,8 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
 
             } else {
                 //エラーを返す
-                    print("入力に誤りがあります")
+                    print("入力されていません")
+
                     //アラートを作る
                     let alertController = UIAlertController(title: "入力エラー", message: "設定に誤りがあります", preferredStyle: .alert)
                     
