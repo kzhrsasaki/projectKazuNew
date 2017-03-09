@@ -13,7 +13,7 @@ class fourthViewController: UIViewController,UITableViewDataSource, UITableViewD
     
     
     @IBOutlet weak var totslScoreLabel: UILabel!
-    
+
     @IBOutlet weak var periodTableView: UITableView!
     
     // Tableで使用する配列を定義する
@@ -87,39 +87,13 @@ class fourthViewController: UIViewController,UITableViewDataSource, UITableViewD
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             print("Value: \(myWeeks[indexPath.row])")
-//            switch indexPath.row {
-//            case 0:
-//                myWeeks[indexPath.row] = thisWeek
-//            case 1:
-//                myWeeks[indexPath.row] = oneWeekAg
-//            case 2:
-//                myWeeks[indexPath.row] = twoWeekAg
-//            case 3:
-//                myWeeks[indexPath.row] = threeWeekAg
-//            default:
-//                false
-//            }
 
         } else if indexPath.section == 1 {
             print("Value: \(myMonths[indexPath.row])")
-//            switch indexPath.row {
-//            case 0:
-//                myMonths[indexPath.row] = thisMonth
-//            case 1:
-//                myMonths[indexPath.row] = oneMonthAg
-//            case 2:
-//                myMonths[indexPath.row] = twoMonthAg
-//            case 3:
-//                myMonths[indexPath.row] = threeMonthAg
-//            case 4:
-//                myMonths[indexPath.row] = MonthAg
-//            default:
-//                false
-//                
-//            }
             
         }
     }
+    
     //テーブルに表示する配列の総数を返す
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
