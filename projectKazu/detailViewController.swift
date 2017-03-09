@@ -37,6 +37,7 @@ class detailViewController: UIViewController, UITextViewDelegate {
  
         var dic:NSDictionary = appDelegate.dic
         myContents.text = dic["myContents"] as! String
+        myMemo.text = dic["memo"] as! String
         
 
         //キーボードの上に「閉じる」ボタンを配置
@@ -99,24 +100,17 @@ class detailViewController: UIViewController, UITextViewDelegate {
         
         return true
     }
-   
-    @IBAction func tapClose(_ sender: UIButton) {
-        myMemo.resignFirstResponder()
-        UIView.animate(withDuration: 0.5, animations: { () -> Void in
-            
-            self.formView.frame.origin = CGPoint(x: 5, y:self.formView.frame.origin.y + 250)
-            
-        }, completion: {finished in print("上に現れました")})
-    }
     
      //baseViewを隠す
     func hideBaseView(){
         self.formView.frame.origin = CGPoint(x: 0, y:self.view.frame.size.height)
     }
     
-    //キーボードを閉じる（右上に完了文字）
+    //キーボードを閉じる（右上に「閉じる」文字）
     func closeKeyBoard(sender:UIButton){
         myMemo.resignFirstResponder()
+        self.formView.frame.origin = CGPoint(x: 5, y:self.formView.frame.origin.y + 250)
+
     }
 
     
@@ -150,18 +144,15 @@ class detailViewController: UIViewController, UITextViewDelegate {
                  try viewContext.save()
               } catch {
               }
-//              //thirdViewControllerへ戻る
-//              tabBarController?.selectedIndex = 1
-//              //セグエを使って画面移動、identifierに入力済みのもの
-//              performSegue(withIdentifier: "showThirdView", sender: nil)
-            //アラートを作る
-            let alertController = UIAlertController(title: "入力確認", message: "ふり返りメモを保存しますか？", preferredStyle: .alert)
+               //appDelegate.dic["memo"] = myMemo.text
+            
+            let alertController = UIAlertController(title: "入力確認", message: "入力内容を保存しますか？", preferredStyle: .alert)
             
             //OKボタンを追加 handler...ボタンが押された時発動する処理を記述
-            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: {action in self.dismiss(animated: true, completion: nil)}))
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: {action in self.dismiss(animated: false, completion: nil)}))
             
             //アラートを表示する
-            present(alertController,animated: true, completion: nil)
+            present(alertController,animated: false, completion: nil)
             
          } else {
             //エラーを返す
@@ -170,18 +161,14 @@ class detailViewController: UIViewController, UITextViewDelegate {
             let alertController = UIAlertController(title: "未入力エラー", message: "文字が入力されていません", preferredStyle: .alert)
             
             //OKボタンを追加 handler...ボタンが押された時発動する処理を記述
-            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: {action in self.dismiss(animated: true, completion: nil)}))
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: {action in self.formView.frame.origin = CGPoint(x: 5, y:self.formView.frame.origin.y + 250)}))
             
             //アラートを表示する
-            present(alertController,animated: true, completion: nil)
+            present(alertController,animated: false, completion: nil)
          }
       }
     
-//    //Segueで画面遷移する時発動
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//            //ダウンキャスティングで型変換
-//            let thirdVC = segue.destination as! thirdViewController
-//     }
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

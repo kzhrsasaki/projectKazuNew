@@ -88,14 +88,20 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         baseView.backgroundColor = UIColor.gray
         //画面に追加
         self.view.addSubview(baseView)
-                
-    //Coredataからのdataを読み込む処理（後で関数を定義）
-        read()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        //Coredataからのdataを読み込む処理（後で関数を定義）
+        read()
     }
     
     //既に存在するデータの読み込み
     func read(){
+        //配列をいったん初期化する（詳細画面から遷移した際にダブりを防ぐ）
+        todoList = []
+        todoListForView = []
+        
         //AppDelegateを使う
         let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
     
@@ -108,9 +114,6 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
     do{
         //データを一括取得
         let fetchResults = try viewContext.fetch(query)
-    
-        //いったん配列を空っぽにする（初期化する）
-       // todoList = NSArray.self as! [String]
 
         //データを一件ずつ取得(result)
         for result: AnyObject in fetchResults{

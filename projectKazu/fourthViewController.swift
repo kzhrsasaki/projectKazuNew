@@ -124,10 +124,11 @@ class fourthViewController: UIViewController,UITableViewDataSource, UITableViewD
                     
                 if indexPath.section == 0 {
                         cell.textLabel?.text = "\(myWeeks[indexPath.row])"
+
                 } else if indexPath.section == 1 {
                         cell.textLabel?.text = "\(myMonths[indexPath.row])"
                 }
-                    return cell
+                return cell
             }
 
                 
