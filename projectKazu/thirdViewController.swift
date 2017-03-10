@@ -497,8 +497,7 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         print("番号\(secondVC.scSelectedContents)を次の画面へ渡す")
         }
     }
-   
-        
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

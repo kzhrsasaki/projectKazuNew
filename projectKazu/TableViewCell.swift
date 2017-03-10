@@ -19,8 +19,7 @@ class TableViewCell: UITableViewCell {
     @IBOutlet weak var completeButton: UIButton!
     @IBOutlet weak var detailButton: UIButton!
 
-    @IBOutlet weak var periodScoreLabel: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

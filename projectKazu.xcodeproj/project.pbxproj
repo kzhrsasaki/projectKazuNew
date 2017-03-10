@@ -21,6 +21,7 @@
 		18D3F8C61E4D69370085AA61 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18D3F8C41E4D69370085AA61 /* LaunchScreen.storyboard */; };
 		18D3F8D11E4D69370085AA61 /* projectKazuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3F8D01E4D69370085AA61 /* projectKazuTests.swift */; };
 		18D3F8DC1E4D69370085AA61 /* projectKazuUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3F8DB1E4D69370085AA61 /* projectKazuUITests.swift */; };
+		18E8919A1E723F5800516D9A /* ScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E891991E723F5800516D9A /* ScoreTableViewCell.swift */; };
 		18FF14C61E5BD1150094CA68 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FF14C51E5BD1150094CA68 /* TableViewCell.swift */; };
 		18FF86361E5680CC00F7AD9D /* projectKazu.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18FF86341E5680CC00F7AD9D /* projectKazu.xcdatamodeld */; };
 /* End PBXBuildFile section */
@@ -63,6 +64,7 @@
 		18D3F8D71E4D69370085AA61 /* projectKazuUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = projectKazuUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		18D3F8DB1E4D69370085AA61 /* projectKazuUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = projectKazuUITests.swift; sourceTree = "<group>"; };
 		18D3F8DD1E4D69370085AA61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18E891991E723F5800516D9A /* ScoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreTableViewCell.swift; sourceTree = "<group>"; };
 		18FF14C51E5BD1150094CA68 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		18FF86351E5680CC00F7AD9D /* projectKazu.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = projectKazu.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -130,6 +132,7 @@
 				18D3F8C21E4D69370085AA61 /* Assets.xcassets */,
 				18D3F8C41E4D69370085AA61 /* LaunchScreen.storyboard */,
 				18D3F8C71E4D69370085AA61 /* Info.plist */,
+				18E891991E723F5800516D9A /* ScoreTableViewCell.swift */,
 			);
 			path = projectKazu;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 				1857D3441E56E8D100EB2AAD /* ToDo+CoreDataClass.swift in Sources */,
 				1857D3451E56E8D100EB2AAD /* ToDo+CoreDataProperties.swift in Sources */,
 				18D3F8BC1E4D69370085AA61 /* AppDelegate.swift in Sources */,
+				18E8919A1E723F5800516D9A /* ScoreTableViewCell.swift in Sources */,
 				18FF86361E5680CC00F7AD9D /* projectKazu.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

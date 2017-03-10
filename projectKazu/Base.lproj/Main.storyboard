@@ -447,7 +447,6 @@
         <!--実績まとめ-->
         <scene sceneID="mBy-dB-32V">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="O80-4s-5La" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="AfD-FD-oUw" customClass="fourthViewController" customModule="projectKazu" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nct-KO-yDO"/>
@@ -466,7 +465,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="myCell" id="4bF-RD-QWx" customClass="TableViewCell" customModule="projectKazu" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="myCell" id="4bF-RD-QWx" customClass="ScoreTableViewCell" customModule="projectKazu" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="383" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4bF-RD-QWx" id="lWG-PI-eeD">
@@ -480,9 +479,17 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fi7-EL-nhq">
+                                                            <rect key="frame" x="37" y="8" width="80" height="32"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                 </tableViewCellContentView>
                                                 <connections>
+                                                    <outlet property="periodLabel" destination="fi7-EL-nhq" id="qUf-H6-H6e"/>
                                                     <outlet property="periodScoreLabel" destination="q1A-2V-2st" id="0me-wU-uFV"/>
                                                 </connections>
                                             </tableViewCell>
@@ -545,6 +552,7 @@
                         <outlet property="totslScoreLabel" destination="lhV-Hc-PJ6" id="x3A-0n-SLl"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="O80-4s-5La" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="877.60000000000002" y="876.61169415292363"/>
         </scene>
