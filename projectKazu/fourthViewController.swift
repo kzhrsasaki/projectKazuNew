@@ -26,6 +26,26 @@ class fourthViewController: UIViewController,UITableViewDataSource, UITableViewD
     // Sectionで使用する配列を定義する
     let mySections:NSArray = ["週別成績（4週)","月別成績(6か月）"]
     
+    // スコア集計に必要となる配列を定義
+    var thisWeek:NSArray = []
+    var oneWeekAg:NSArray = []
+    var twoWeekAg:NSArray = []
+    var threeWeekAg:NSArray = []
+    
+    var firstMonthDay1:Date = Date()
+    var firstMonthDay2:Date = Date()
+    var firstMonthDay3:Date = Date()
+    var firstMonthDay4:Date = Date()
+    var firstMonthDay5:Date = Date()
+    var firstMonthDay6:Date = Date()
+    
+    var thisMonthAg:NSArray = []
+    var oneMonthAg:NSArray = []
+    var twoMonthAg:NSArray = []
+    var threeMonthAg:NSArray = []
+    var fourMonthAg:NSArray = []
+    var fiveMonthAg:NSArray = []
+    //期間ごとのスコアを定義
     var thisWeekScore: Int = 0
     var oneWeekAgScore: Int = 0
     var twoWeekAgScore: Int = 0
@@ -43,44 +63,63 @@ class fourthViewController: UIViewController,UITableViewDataSource, UITableViewD
         super.viewDidLoad()
         
         var totalScore: Int = 100
-        
-        
-        
+
         totslScoreLabel.text = "合計得点：\(totalScore)点"
         //Coredataからのdataを読み込む処理（後で関数を定義）
         read()
+                
+        //今日から7日未満の差の日付（hh:mm:ssを00:00:00に換算）で日曜から配列を定義し、配列の日付に係るscoreを合計
         
-        // セルの行ごとにスコアの計算ロジックに基づいて定義
-        thisWeekScore = 6
-
+        let calendar = Calendar(identifier: .gregorian)
+        //今日の日付が何曜日かを算出（日曜日が1、土曜日が7）
+        let comp = Calendar.Component.weekday
+        var weekday = NSCalendar.current.component(comp, from: NSDate() as Date)
         
-        oneWeekAgScore = 7
-
         
-        twoWeekAgScore = 6
-
+        var diffDateNum = weekday - 1
         
-        threeWeekAgScore = 5
-
+        var sunday = Date(timeInterval: TimeInterval(Int(-86400*diffDateNum)), since: NSDate() as Date)
         
-        thisMonthScore = 12
-
+        var sunday2 = Date(timeInterval: TimeInterval(Int(-86400*(diffDateNum + 7 ))), since: NSDate() as Date)
         
-        oneMonthAgScore = 13
-
+        var sunday3 = Date(timeInterval: TimeInterval(Int(-86400*(diffDateNum + 14 ))), since: NSDate() as Date)
         
-        twoMonthAgScore = 14
-
+        var sunday4 = Date(timeInterval: TimeInterval(Int(-86400*(diffDateNum + 21 ))), since: NSDate() as Date)
         
-        threeMonthAgScore = 15
-
-        
-        fourMonthAgScore = 16
-
-        
-        fiveMonthAgScore = 17
-
-
+//        todoListForView = NSArray() as! [NSDictionary]
+        for todo in todoListForView{
+            print(todo)
+            
+            let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+            
+            if (calendar.dateComponents([.day], from: sunday, to: todo["dueDate"] as! Date).day! >= 0) {
+                
+                thisWeekScore += todo["score"] as! Int
+                
+            }
+            if (calendar.dateComponents([.day], from: sunday2, to: todo["dueDate"] as! Date).day! >= 0) {
+                
+                oneWeekAgScore += todo["score"] as! Int
+                
+            }
+            if (calendar.dateComponents([.day], from: sunday3, to: todo["dueDate"] as! Date).day! >= 0) {
+                
+                twoWeekAgScore += todo["score"] as! Int
+                
+            }
+            if (calendar.dateComponents([.day], from: sunday4, to: todo["dueDate"] as! Date).day! >= 0) {
+            
+                threeWeekAgScore += todo["score"] as! Int
+            }
+                
+            
+//            if (weekday == 1) {
+//                   sunday1 = NSDate() as Date
+//            
+//            } else if (weekday == 2) {
+//                  sunday1 = Date(timeInterval: -86400 * day, since: NSDate() as Date)
+//            } else if
+        }
     }
     
     //既に存在するデータの読み込み
@@ -110,25 +149,16 @@ class fourthViewController: UIViewController,UITableViewDataSource, UITableViewD
                 let myContents: String? = result.value(forKey: "myContents") as? String
                 let memo: String? = result.value(forKey: "memo") as? String
                 
-                //データを配列に追加する。どうやって？
-                todoListForView.append(["inputDate":inputDate,"dueDate":dueDate,"myTitle":myTitle,"score":score,"complete":complete,"reChallenge":reChallenge,"myContents":myContents,"memo":memo])
+                //データを配列に追加する
+              todoListForView.append(["inputDate":inputDate,"dueDate":dueDate,"myTitle":myTitle,"score":score,"complete":complete,"reChallenge":reChallenge,"myContents":myContents,"memo":memo])
                 
                }
            } catch {
            }
 
-
+            
     }
 
-    
-    
-    let date: NSDate = NSDate()
-    let cal: NSCalendar = NSCalendar(identifier: NSCalendar.Identifier.gregorian)!
-    let comp: NSDateComponents = cal.components([NSCalendar.Unit.Weekday], fromDate: .date）
-    
-    let weekday: Int = comp.weekday
-    
-    
     //セクションの数を返す
     func numberOfSections(in tableView: UITableView) -> Int {
         return mySections.count
@@ -174,13 +204,13 @@ class fourthViewController: UIViewController,UITableViewDataSource, UITableViewD
                         cell.periodScoreLabel.text = "\(thisWeekScore)点"
                     case 1:
                         cell.periodLabel.text = "1週前"
-                        cell.periodScoreLabel.text = "\(oneWeekAgScore)点"
+                        cell.periodScoreLabel.text = "\(oneWeekAgScore - thisWeekScore)点"
                     case 2:
                         cell.periodLabel.text = "2週前"
-                        cell.periodScoreLabel.text = "\(twoWeekAgScore)点"
+                        cell.periodScoreLabel.text = "\(twoWeekAgScore - oneWeekAgScore - thisWeekScore)点"
                     case 3:
                         cell.periodLabel.text = "3週前"
-                        cell.periodScoreLabel.text = "\(threeWeekAgScore)点"
+                        cell.periodScoreLabel.text = "\(threeWeekAgScore - twoWeekAgScore - oneWeekAgScore - thisWeekScore)点"
                     default: break
                         
                     }
@@ -193,19 +223,19 @@ class fourthViewController: UIViewController,UITableViewDataSource, UITableViewD
                         cell.periodScoreLabel.text = "\(thisMonthScore)点"
                     case 1:
                         cell.periodLabel.text = "1ヶ月前"
-                        cell.periodScoreLabel.text = "\(oneMonthAgScore)点"
+                        cell.periodScoreLabel.text = "\(oneMonthAgScore - thisMonthScore)点"
                     case 2:
                         cell.periodLabel.text = "2ヶ月前"
-                        cell.periodScoreLabel.text = "\(twoMonthAgScore)点"
+                        cell.periodScoreLabel.text = "\(twoMonthAgScore - thisMonthScore)点"
                     case 3:
                         cell.periodLabel.text = "3ヶ月前"
-                        cell.periodScoreLabel.text = "\(threeMonthAgScore)点"
+                        cell.periodScoreLabel.text = "\(threeMonthAgScore - twoMonthAgScore)点"
                     case 4:
                         cell.periodLabel.text = "4ヶ月前"
-                        cell.periodScoreLabel.text = "\(fourMonthAgScore)点"
+                        cell.periodScoreLabel.text = "\(fourMonthAgScore - threeMonthAgScore)点"
                     case 5:
                         cell.periodLabel.text = "5ヶ月前"
-                        cell.periodScoreLabel.text = "\(fiveMonthAgScore)点"
+                        cell.periodScoreLabel.text = "\(fiveMonthAgScore - fourMonthAgScore)点"
                     default: break
                     }
                 }
