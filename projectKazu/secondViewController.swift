@@ -139,6 +139,7 @@ class secondViewController: UIViewController, UITextFieldDelegate,UITextViewDele
     
         //tabbarの2番目のタブに切り替える
         self.tabBarController?.selectedIndex = 1
+        //tabbarが無い場合はunwindsegueで戻る
     }
     
         //タイトル（textField)が編集された際に呼ばれる
