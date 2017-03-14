@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1805A6171E778EAC00EA8B94 /* input.png in Resources */ = {isa = PBXBuildFile; fileRef = 1805A6161E778EAC00EA8B94 /* input.png */; };
+		1805A6191E778EE000EA8B94 /* showList.png in Resources */ = {isa = PBXBuildFile; fileRef = 1805A6181E778EE000EA8B94 /* showList.png */; };
+		1805A61B1E7793E400EA8B94 /* report.png in Resources */ = {isa = PBXBuildFile; fileRef = 1805A61A1E7793E400EA8B94 /* report.png */; };
+		1805A61D1E77951400EA8B94 /* help.png in Resources */ = {isa = PBXBuildFile; fileRef = 1805A61C1E77951400EA8B94 /* help.png */; };
 		1853651D1E5CD37B00CA7435 /* detailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1853651C1E5CD37B00CA7435 /* detailViewController.swift */; };
 		1857D3441E56E8D100EB2AAD /* ToDo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857D3421E56E8D100EB2AAD /* ToDo+CoreDataClass.swift */; };
 		1857D3451E56E8D100EB2AAD /* ToDo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857D3431E56E8D100EB2AAD /* ToDo+CoreDataProperties.swift */; };
@@ -44,6 +48,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1805A6161E778EAC00EA8B94 /* input.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = input.png; sourceTree = "<group>"; };
+		1805A6181E778EE000EA8B94 /* showList.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = showList.png; sourceTree = "<group>"; };
+		1805A61A1E7793E400EA8B94 /* report.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = report.png; sourceTree = "<group>"; };
+		1805A61C1E77951400EA8B94 /* help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help.png; sourceTree = "<group>"; };
 		1853651C1E5CD37B00CA7435 /* detailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = detailViewController.swift; sourceTree = "<group>"; };
 		1857D3421E56E8D100EB2AAD /* ToDo+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ToDo+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1857D3431E56E8D100EB2AAD /* ToDo+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ToDo+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -133,6 +141,10 @@
 				18D3F8C41E4D69370085AA61 /* LaunchScreen.storyboard */,
 				18D3F8C71E4D69370085AA61 /* Info.plist */,
 				18E891991E723F5800516D9A /* ScoreTableViewCell.swift */,
+				1805A6161E778EAC00EA8B94 /* input.png */,
+				1805A6181E778EE000EA8B94 /* showList.png */,
+				1805A61C1E77951400EA8B94 /* help.png */,
+				1805A61A1E7793E400EA8B94 /* report.png */,
 			);
 			path = projectKazu;
 			sourceTree = "<group>";
@@ -263,8 +275,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				18D3F8C61E4D69370085AA61 /* LaunchScreen.storyboard in Resources */,
+				1805A61B1E7793E400EA8B94 /* report.png in Resources */,
 				18D3F8C31E4D69370085AA61 /* Assets.xcassets in Resources */,
 				18D3F8C11E4D69370085AA61 /* Main.storyboard in Resources */,
+				1805A6171E778EAC00EA8B94 /* input.png in Resources */,
+				1805A61D1E77951400EA8B94 /* help.png in Resources */,
+				1805A6191E778EE000EA8B94 /* showList.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

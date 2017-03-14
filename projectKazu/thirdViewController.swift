@@ -467,8 +467,10 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         selectedTitle = appDelegate.dic["myTitle"] as! String
         selectedContents = appDelegate.dic["myContents"] as! String
         
-        //セグエを使って画面移動、identifierに入力済みのもの
-        performSegue(withIdentifier: "showSecondView", sender: nil)
+//        //セグエを使って画面移動、identifierに入力済みのもの
+//        performSegue(withIdentifier: "showSecondView", sender: nil)
+        //tabbarの1番目のタブに切り替える
+        self.tabBarController?.selectedIndex = 0
         
     }
         
@@ -476,8 +478,8 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
     //「詳細」からdetailViewControllerへ推移
-      if (segue.identifier == "showDetailView"){
-        //ダウンキャスティングで型変換
+//      if (segue.identifier == "showDetailView"){
+//        //ダウンキャスティングで型変換
         let detailVC = segue.destination as! detailViewController
         
         //次の画面detailViewControllerに選択された日付と配列を渡す
@@ -485,17 +487,17 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         detailVC.todoList = todoList
         // デバッグエリアの情報をわかりやすく表示
         print("番号\(detailVC.scSelectedDate)を次の画面へ渡す")
-     } else {
-    //「再挑戦」からsecondVireControllerへ推移
-        //ダウンキャスティングで型変換
-        let secondVC = segue.destination as! secondViewController
-        //遷移先画面secondViewControllerに選択されたtitleとcontentsを渡す
-        secondVC.scSelectedTitle = selectedTitle
-        secondVC.scSelectedContents = selectedContents
-        // デバッグエリアの情報をわかりやすく表示
-        print("番号\(secondVC.scSelectedTitle)を次の画面へ渡す")
-        print("番号\(secondVC.scSelectedContents)を次の画面へ渡す")
-        }
+//     } else {
+//    //「再挑戦」からsecondVireControllerへ推移
+//        //ダウンキャスティングで型変換
+//        let secondVC = segue.destination as! secondViewController
+//        //遷移先画面secondViewControllerに選択されたtitleとcontentsを渡す
+//        secondVC.scSelectedTitle = selectedTitle
+//        secondVC.scSelectedContents = selectedContents
+//        // デバッグエリアの情報をわかりやすく表示
+//        print("番号\(secondVC.scSelectedTitle)を次の画面へ渡す")
+//        print("番号\(secondVC.scSelectedContents)を次の画面へ渡す")
+//        }
     }
     
     override func didReceiveMemoryWarning() {

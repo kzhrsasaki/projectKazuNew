@@ -39,13 +39,12 @@ class fourthViewController: UIViewController,UITableViewDataSource, UITableViewD
     var fiveMonthAgScore: Int = 0
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var totalScore: Int = 100
+        var totalScore: Int = 0
 
-        totslScoreLabel.text = "合計得点：\(totalScore)点"
+
         //Coredataからのdataを読み込む処理（後で関数を定義）
         read()
                 
@@ -66,8 +65,8 @@ class fourthViewController: UIViewController,UITableViewDataSource, UITableViewD
         
         var sunday4 = Date(timeInterval: TimeInterval(Int(-86400*(diffDateNum + 21 ))), since: NSDate() as Date)
         
-        //
-        let comp2 = calendar.components([ .Year:Int, .Month:Int, .Day:Int, .Hour:Int, .Minute:Int, .Second:Int], fromDate: NSDate())
+        //月初の日付を取得するための定義
+        var comp2 = calendar.dateComponents([ .year, .month, .day, .hour, .minute, .second], from: NSDate() as Date)
         
         // ここで1日の0時0分0秒に設定（今月の1日）
         comp2.day = 1
@@ -75,10 +74,10 @@ class fourthViewController: UIViewController,UITableViewDataSource, UITableViewD
         comp2.minute = 0
         comp2.second = 0
         
-        // 月初の日付を取得
-        var monthOfFirstDay = calendar.dateFromComponents(comp2)
+        // 月初（６ヶ月分）の日付を取得
+        var monthOfFirstDay = calendar.date(from: comp2)
         
-        var monthOfFirstDay2 = calcDate(year:0,month:-1,day:0,hour:0,minute:0,second:0,baseDate: monthOfFirstDay)
+        var monthOfFirstDay2 = calcDate(year:0,month:-1,day:0,hour:0,minute:0,second:0,baseDate: monthOfFirstDay!)
         
         var monthOfFirstDay3 = calcDate(year:0,month:-1,day:0,hour:0,minute:0,second:0,baseDate: monthOfFirstDay2)
         
@@ -95,58 +94,68 @@ class fourthViewController: UIViewController,UITableViewDataSource, UITableViewD
             
             let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
             
-                totalScore += todo["score"] as! Int
+            // scoreの表示
+            var completeFlag = todo["complete"] as! Bool
+            var score = 0
+            
+            if (completeFlag == true){
+                score = todo["score"] as! Int
+                
+            } else {
+                score = 0
+            }
+            
+                totalScore += score
             
             if (calendar.dateComponents([.day], from: sunday, to: todo["dueDate"] as! Date).day! >= 0) {
                 
-                thisWeekScore += todo["score"] as! Int
+                thisWeekScore += score
                 
             }
             if (calendar.dateComponents([.day], from: sunday2, to: todo["dueDate"] as! Date).day! >= 0) {
                 
-                oneWeekAgScore += todo["score"] as! Int
+                oneWeekAgScore += score
                 
             }
             if (calendar.dateComponents([.day], from: sunday3, to: todo["dueDate"] as! Date).day! >= 0) {
                 
-                twoWeekAgScore += todo["score"] as! Int
+                twoWeekAgScore += score
                 
             }
             if (calendar.dateComponents([.day], from: sunday4, to: todo["dueDate"] as! Date).day! >= 0) {
             
-                threeWeekAgScore += todo["score"] as! Int
+                threeWeekAgScore += score
             }
-            if (calendar.dateComponents([.day], from: monthOfFirstDay, to: todo["dueDate"] as! Date).day! >= 0) {
+            if (calendar.dateComponents([.day], from: monthOfFirstDay!, to: todo["dueDate"] as! Date).day! >= 0) {
                 
-                thisMonthScore += todo["score"] as! Int
-            }
+                thisMonthScore += score            }
             if (calendar.dateComponents([.day], from: monthOfFirstDay2, to: todo["dueDate"] as! Date).day! >= 0) {
                 
-                oneMonthAgScore += todo["score"] as! Int
-            }
+                oneMonthAgScore += score            }
             if (calendar.dateComponents([.day], from: monthOfFirstDay3, to: todo["dueDate"] as! Date).day! >= 0) {
                 
-                twoMonthAgScore += todo["score"] as! Int
+                twoMonthAgScore += score
             }
             if (calendar.dateComponents([.day], from: monthOfFirstDay4, to: todo["dueDate"] as! Date).day! >= 0) {
                 
-                threeMonthAgScore += todo["score"] as! Int
-            }
+                threeMonthAgScore += score            }
             if (calendar.dateComponents([.day], from: monthOfFirstDay5, to: todo["dueDate"] as! Date).day! >= 0) {
                 
-                fourMonthAgScore += todo["score"] as! Int
-            }
+                fourMonthAgScore += score            }
             if (calendar.dateComponents([.day], from: monthOfFirstDay6, to: todo["dueDate"] as! Date).day! >= 0) {
                 
-                fiveMonthAgScore += todo["score"] as! Int
+                fiveMonthAgScore += score
             }
             
         }
+        
+                totslScoreLabel.text = "合計得点：\(totalScore)点"
     }
     
     //
-    func calcDate(year:Int ,month:Int ,day:Int ,hour:Int ,minute:Int ,second:Int ,baseDate:String? = nil) -> Date {
+    func calcDate(year:Int ,month:Int ,day:Int ,hour:Int ,minute:Int ,second:Int ,baseDate:Date) -> Date {
         
+        let calendar = Calendar(identifier: .gregorian)
         var components = DateComponents()
         
         components.setValue(year,for: Calendar.Component.year)
@@ -156,6 +165,8 @@ class fourthViewController: UIViewController,UITableViewDataSource, UITableViewD
         components.setValue(minute,for: Calendar.Component.minute)
         components.setValue(second,for: Calendar.Component.second)
         
+        return calendar.date(from: components)!
+
     }
     
     //既に存在するデータの読み込み
@@ -188,11 +199,14 @@ class fourthViewController: UIViewController,UITableViewDataSource, UITableViewD
                 //データを配列に追加する
               todoListForView.append(["inputDate":inputDate,"dueDate":dueDate,"myTitle":myTitle,"score":score,"complete":complete,"reChallenge":reChallenge,"myContents":myContents,"memo":memo])
                 
+                //削除したデータを取り除く
+                
+                
                }
            } catch {
            }
 
-            
+     
     }
 
     //セクションの数を返す

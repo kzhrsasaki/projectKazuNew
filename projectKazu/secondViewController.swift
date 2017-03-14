@@ -26,7 +26,7 @@ class secondViewController: UIViewController, UITextFieldDelegate,UITextViewDele
     //scoreのメンバー変数化
     var score:Int = 1
     
-    //segueでthirdViewControllerから引き継ぐ
+    //thirdViewControllerから引き継ぐ
     var scSelectedTitle = ""
     var scSelectedContents = ""
     
@@ -139,14 +139,13 @@ class secondViewController: UIViewController, UITextFieldDelegate,UITextViewDele
     
         //tabbarの2番目のタブに切り替える
         self.tabBarController?.selectedIndex = 1
-        //tabbarが無い場合はunwindsegueで戻る
     }
     
         //タイトル（textField)が編集された際に呼ばれる
         func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string1: String) -> Bool {
         
         // 文字数最大を決める.
-        let maxLength1: Int = 11
+        let maxLength1: Int = 21
         
         // 入力済みの文字と入力された文字を合わせて取得.
         let str1 = textField.text! + string1
