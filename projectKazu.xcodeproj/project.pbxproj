@@ -25,6 +25,7 @@
 		18D3F8C61E4D69370085AA61 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18D3F8C41E4D69370085AA61 /* LaunchScreen.storyboard */; };
 		18D3F8D11E4D69370085AA61 /* projectKazuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3F8D01E4D69370085AA61 /* projectKazuTests.swift */; };
 		18D3F8DC1E4D69370085AA61 /* projectKazuUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3F8DB1E4D69370085AA61 /* projectKazuUITests.swift */; };
+		18DAA84B1E7837750069066B /* todoList.png in Resources */ = {isa = PBXBuildFile; fileRef = 18DAA84A1E7837740069066B /* todoList.png */; };
 		18E8919A1E723F5800516D9A /* ScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E891991E723F5800516D9A /* ScoreTableViewCell.swift */; };
 		18FF14C61E5BD1150094CA68 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FF14C51E5BD1150094CA68 /* TableViewCell.swift */; };
 		18FF86361E5680CC00F7AD9D /* projectKazu.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18FF86341E5680CC00F7AD9D /* projectKazu.xcdatamodeld */; };
@@ -72,6 +73,7 @@
 		18D3F8D71E4D69370085AA61 /* projectKazuUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = projectKazuUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		18D3F8DB1E4D69370085AA61 /* projectKazuUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = projectKazuUITests.swift; sourceTree = "<group>"; };
 		18D3F8DD1E4D69370085AA61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18DAA84A1E7837740069066B /* todoList.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = todoList.png; sourceTree = "<group>"; };
 		18E891991E723F5800516D9A /* ScoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreTableViewCell.swift; sourceTree = "<group>"; };
 		18FF14C51E5BD1150094CA68 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		18FF86351E5680CC00F7AD9D /* projectKazu.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = projectKazu.xcdatamodel; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 				1805A6181E778EE000EA8B94 /* showList.png */,
 				1805A61C1E77951400EA8B94 /* help.png */,
 				1805A61A1E7793E400EA8B94 /* report.png */,
+				18DAA84A1E7837740069066B /* todoList.png */,
 			);
 			path = projectKazu;
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18D3F8C61E4D69370085AA61 /* LaunchScreen.storyboard in Resources */,
+				18DAA84B1E7837750069066B /* todoList.png in Resources */,
 				1805A61B1E7793E400EA8B94 /* report.png in Resources */,
 				18D3F8C31E4D69370085AA61 /* Assets.xcassets in Resources */,
 				18D3F8C11E4D69370085AA61 /* Main.storyboard in Resources */,
