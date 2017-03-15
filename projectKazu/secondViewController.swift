@@ -10,6 +10,9 @@ import UIKit
 import CoreData
 
 class secondViewController: UIViewController, UITextFieldDelegate,UITextViewDelegate {
+    
+    //navigationVar に名前をつける
+    @IBOutlet weak var myNavigationVar: UINavigationBar!
 
     @IBOutlet weak var formView: UIView!
 
@@ -34,6 +37,8 @@ class secondViewController: UIViewController, UITextFieldDelegate,UITextViewDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        myNavigationVar.frame.size.height = 55
     
     //「再チャレンジ」でthirdViewControllerからセグエで推移
         myTitle.text = scSelectedTitle

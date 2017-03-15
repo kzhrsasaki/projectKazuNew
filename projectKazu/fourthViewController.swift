@@ -13,10 +13,12 @@ class fourthViewController: UIViewController,UITableViewDataSource, UITableViewD
     
     @IBOutlet weak var totslScoreLabel: UILabel!
     @IBOutlet weak var periodTableView: UITableView!
+
+    //navigationBar に名前をつける
+    @IBOutlet weak var myNavigationVar: UINavigationBar!
     
     //辞書配列の定義（見るだけ）
     var todoListForView:[NSDictionary] = []
-
     
     // Tableで使用する配列を定義する
     let myWeeks:NSArray = ["今週","1週前","2週前","3週前",]
@@ -41,6 +43,8 @@ class fourthViewController: UIViewController,UITableViewDataSource, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        myNavigationVar.frame.size.height = 55
         
         var totalScore: Int = 0
 

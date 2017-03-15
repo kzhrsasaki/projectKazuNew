@@ -8,12 +8,16 @@
 
 import UIKit
 
-class fifthViewController: UIViewController {
 
+class fifthViewController: UIViewController {
+    //navigationBar に名前をつける
+    @IBOutlet weak var myNavigationBar: UINavigationBar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        myNavigationBar.frame.size.height = 55
 
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {

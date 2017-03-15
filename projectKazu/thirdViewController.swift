@@ -9,6 +9,17 @@
 import UIKit
 import CoreData
 
+extension UINavigationBar
+{
+    override open func sizeThatFits(_ size: CGSize) -> CGSize
+    {
+        let newSize:CGSize = CGSize(width:self.frame.size.width, height:35)
+        
+        return newSize
+    }
+}
+
+
 class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDelegate{
     
     // tableViewの定義
@@ -58,6 +69,9 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         
         // 編集ボタンを左上に配置して履歴の削除機能
         navigationItem.rightBarButtonItem = editButtonItem
+        
+        navigationItem.title = "履歴・登録"
+        navigationController?.navigationBar.frame.size.height = 55
     
         //日付が変わった時のイベントをdatePickerに設定
         myDatePicker.addTarget(self, action: #selector(showDateSelected(sender:)), for: .valueChanged)
