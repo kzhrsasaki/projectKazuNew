@@ -177,7 +177,7 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         var dic:NSDictionary = todoListForView[indexPath.row]
         
         let df = DateFormatter()
-        df.dateFormat = "yy/MM/dd"
+        df.dateFormat = "MM/dd"
         
         //日付を文字列に変換して登録日と期限日を表示
         cell.inputDateLabel.text = df.string(from: dic["inputDate"] as! Date)
