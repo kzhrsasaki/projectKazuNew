@@ -23,6 +23,7 @@ class secondViewController: UIViewController, UITextFieldDelegate,UITextViewDele
     
     @IBOutlet weak var mySwitch: UISwitch!
     
+    @IBOutlet weak var bottomNavBar: NSLayoutConstraint!
     //辞書配列の定義（文字列で良いか？）
     var todoList:[String] = NSArray() as! [String]
     
@@ -39,6 +40,8 @@ class secondViewController: UIViewController, UITextFieldDelegate,UITextViewDele
         super.viewDidLoad()
         
         myNavigationVar.frame.size.height = 55
+        
+        bottomNavBar.constant = 12
     
     //「再チャレンジ」でthirdViewControllerからセグエで推移
         myTitle.text = scSelectedTitle

@@ -29,29 +29,27 @@ class ViewController: UIViewController {
             let notification:UILocalNotification = UILocalNotification()
             
             //タイトル
-            notification.alertTitle = "TODO登録のご案内"
+            notification.alertTitle = "完了入力のご案内"
             //通知メッセージ
-            notification.alertBody = "TODOが完了したら「履歴・完了登録画面」にて完了入力しましょう！"
+            notification.alertBody = "TODOを達成したら「履歴・完了登録画面」にて完了入力しましょう！"
             //Timezoneの設定
             notification.timeZone = TimeZone.current
-            
-            //フォーマットを設定
-            //let df = DateFormatter()
-            //df.dateFormat = "yy/MM/dd HH:mm:ss"
-
-            
-            //毎日17時00分に通知を設定
-            //notification.fireDate = Date(timeInterval: 61200, since: date(from: df.string(from: NSDate() as Date) + " 00:00:00")!)
             
             // 通知設定
             let now = NSDate() as Date
             print(now)
+            
             let calendar = NSCalendar(identifier: NSCalendar.Identifier.gregorian)
-            let comps:NSDateComponents = calendar!.components([NSCalendar.Unit.year, .month, .day, .hour, .minute], from: now) as NSDateComponents
+            let comps:NSDateComponents = calendar!.components([NSCalendar.Unit.year, .month, .day, .hour, .minute, .second], from: now) as NSDateComponents
+            
+//            let calendar = Calendar.current            
+//            let comps:NSDateComponents = calendar.dateComponents([NSCalendar.Unit.year, .month, .day, .hour, .minute, .second], from: now) as NSDateComponents
+//            
             comps.timeZone = TimeZone.current
             comps.calendar = calendar as Calendar?
             comps.hour = 12
             comps.minute = 14
+            comps.second = 0
             
             //まだ今日の通知時間が来てないなら今日の日付、すでに過ぎているなら明日の日付
             if now.compare(comps.date!) != .orderedAscending {
