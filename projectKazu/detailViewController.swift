@@ -15,7 +15,8 @@ class detailViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var myContents: UITextView!    
     @IBOutlet weak var myMemo: UITextView!
     @IBOutlet weak var formView: UIView!
-    
+    //navigationaBarに名前をつける
+    @IBOutlet weak var myNavigationBar: UINavigationBar!
     //配列を前の画面から引き継ぐ
     var todoList:[NSDictionary] = []
     
@@ -27,6 +28,9 @@ class detailViewController: UIViewController, UITextViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        myNavigationBar.frame.size.height = 55
+        
         //thirdViewControllerからデータを受け取っているかどうかの確認
         print("前の画面から受け取った\(scSelectedDate)")
         //登録日の表示

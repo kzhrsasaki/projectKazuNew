@@ -72,6 +72,7 @@ class thirdViewController: UIViewController,UITableViewDataSource, UITableViewDe
         
         navigationItem.title = "履歴・登録"
         navigationController?.navigationBar.frame.size.height = 55
+        navigationController?.navigationBar.frame.size.width = self.view.bounds.size.width
     
         //日付が変わった時のイベントをdatePickerに設定
         myDatePicker.addTarget(self, action: #selector(showDateSelected(sender:)), for: .valueChanged)
