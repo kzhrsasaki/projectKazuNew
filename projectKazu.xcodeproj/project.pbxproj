@@ -238,15 +238,18 @@
 				TargetAttributes = {
 					18D3F8B71E4D69370085AA61 = {
 						CreatedOnToolsVersion = 8.2;
+						DevelopmentTeam = MXBRWWFT3Y;
 						ProvisioningStyle = Automatic;
 					};
 					18D3F8CB1E4D69370085AA61 = {
 						CreatedOnToolsVersion = 8.2;
+						DevelopmentTeam = MXBRWWFT3Y;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 18D3F8B71E4D69370085AA61;
 					};
 					18D3F8D61E4D69370085AA61 = {
 						CreatedOnToolsVersion = 8.2;
+						DevelopmentTeam = MXBRWWFT3Y;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 18D3F8B71E4D69370085AA61;
 					};
@@ -396,9 +399,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = MXBRWWFT3Y;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -418,6 +423,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -446,9 +452,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Kazuhiro Sasaki (P3BJDD2795)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = MXBRWWFT3Y;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -461,6 +469,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "c05bd88b-f31e-49e5-a89c-520b26086b78";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -472,10 +481,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Kazuhiro Sasaki (P3BJDD2795)";
 				INFOPLIST_FILE = projectKazu/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sasakikazuhiro.projectKazu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c05bd88b-f31e-49e5-a89c-520b26086b78";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -484,10 +496,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Kazuhiro Sasaki (P3BJDD2795)";
 				INFOPLIST_FILE = projectKazu/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sasakikazuhiro.projectKazu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c05bd88b-f31e-49e5-a89c-520b26086b78";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
